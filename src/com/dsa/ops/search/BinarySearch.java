@@ -1,10 +1,9 @@
-package com.dsa.ops;
+package com.dsa.ops.search;
 
-public class BinarySearch {
+public class BinarySearch implements Search {
 
-    // Return the position of an element in sorted array "items"
-// with value "searchValue".  If "searchValue" is not in "items", return items.length.
-    static int search(int[] items, int searchValue) {
+    @Override
+    public int search(int[] items, int searchValue) {
         int l = -1;
         int r = items.length; // l and r are beyond array bounds while(l+1!=r){ //Stopwhenlandrmeet
         while (l + 1 != r) {
