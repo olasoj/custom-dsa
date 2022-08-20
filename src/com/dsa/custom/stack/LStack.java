@@ -15,7 +15,7 @@ class LStack<E> implements Stack<E> {
 
     public LStack(int size) {
         top = null;
-        size = 0;
+        this.size = size;
     }
 
     public void clear() {
@@ -23,7 +23,7 @@ class LStack<E> implements Stack<E> {
     } // Reinitialize stack
 
     public void push(E it) {      // Put "it" on stack
-        top = new Link<E>(it, top);
+        top = new Link<>(it, top);
         size++;
     }
 

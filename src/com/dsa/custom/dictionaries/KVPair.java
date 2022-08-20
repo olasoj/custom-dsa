@@ -1,27 +1,27 @@
 package com.dsa.custom.dictionaries;
 
 class KVPair<K, E> {
-    private final K k;
-    private final E e;
+    private final K key;
+    private final E element;
 
     // Constructors
     KVPair() {
-        k = null;
-        e = null;
+        key = null;
+        element = null;
     }
 
-    KVPair(K kval, E eval) {
-        k = kval;
-        e = eval;
+    KVPair(K key, E element) {
+        this.key = key;
+        this.element = element;
     }
 
     // Data member access functions
     public K key() {
-        return k;
+        return key;
     }
 
     public E value() {
-        return e;
+        return element;
     }
 }
 
