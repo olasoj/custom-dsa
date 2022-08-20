@@ -1,4 +1,4 @@
-package com.dsa.custom.tree.binary.pointer;
+package com.dsa.custom.tree.binary.node.pointer;
 
 public interface VarBinNode {
     boolean isLeaf();
