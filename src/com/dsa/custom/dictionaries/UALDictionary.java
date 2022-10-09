@@ -1,20 +1,20 @@
 package com.dsa.custom.dictionaries;
 
-import com.dsa.custom.list.AList;
+import com.dsa.custom.list.alist.AList;
 
 /**
  * Dictionary implemented by unsorted array-based list.
  */
-class UALDictionary<K, E> implements Dictionary<K, E> {
+public class UALDictionary<K, E> implements Dictionary<K, E> {
     private static final int DEFAULT_SIZE = 10; // Default size
     private final AList<KVPair<K, E>> list;  // To store dictionary
 
     // Constructors
-    UALDictionary() {
+    public UALDictionary() {
         this(DEFAULT_SIZE);
     }
 
-    UALDictionary(int sz) {
+    public UALDictionary(int sz) {
         list = new AList<>(sz);
     }
 
@@ -26,7 +26,7 @@ class UALDictionary<K, E> implements Dictionary<K, E> {
      * Insert an element: append to list
      */
     public void insert(K k, E e) {
-// Reinitialize
+        // Reinitialize
         KVPair<K, E> temp = new KVPair<>(k, e);
         list.append(temp);
     }
@@ -63,8 +63,7 @@ class UALDictionary<K, E> implements Dictionary<K, E> {
     }
 
 
-    public int size() // Return list size
-    {
+    public int size() { // Return list size
         return list.length();
     }
 }

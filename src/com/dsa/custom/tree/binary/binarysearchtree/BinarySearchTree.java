@@ -8,14 +8,14 @@ import java.util.Objects;
 /**
  * Binary Search Tree implementation for Dictionary ADT
  */
-class BinarySearchTree<K extends Comparable<? super K>, E> implements Dictionary<K, E> {
+public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dictionary<K, E> {
     int nodeCount;             // Number of nodes in the BST
     private BinarySearchTreeNode<K, E> root; // Root of the BST
 
     /**
      * Constructor
      */
-    BinarySearchTree() {
+    public BinarySearchTree() {
         root = null;
         nodeCount = 0;
     }

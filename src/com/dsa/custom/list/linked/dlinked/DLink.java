@@ -7,42 +7,42 @@ public class DLink<E> {
     private DLink<E> prev;
 
     // Doubly linked list node
-// Value for this node
-// Pointer to next node in list
-// Pointer to previous node
-// Constructors
-    DLink(E it, DLink<E> n, DLink<E> p) {
+    // Value for this node
+    // Pointer to next node in list
+    // Pointer to previous node
+    // Constructors
+    public DLink(E it, DLink<E> n, DLink<E> p) {
         element = it;
         next = n;
         prev = p;
     }
 
-    DLink(DLink<E> n, DLink<E> p) {
-        next = n;
-        prev = p;
+    public DLink(DLink<E> next, DLink<E> previous) {
+        this.next = next;
+        prev = previous;
     }
 
-    DLink<E> next() {
+    public DLink<E> next() {
         return next;
     }
 
-    DLink<E> setNext(DLink<E> nextval) {
-        return next = nextval;
+    public DLink<E> setNext(DLink<E> nextVal) {
+        return next = nextVal;
     }
 
-    DLink<E> prev() {
+    public DLink<E> prev() {
         return prev;
     }
 
-    DLink<E> setPrev(DLink<E> prevval) {
-        return prev = prevval;
+    public DLink<E> setPrev(DLink<E> prevVal) {
+        return prev = prevVal;
     }
 
-    E element() {
+    public E element() {
         return element;
     }
 
-    E setElement(E it) {
+    public E setElement(E it) {
         return element = it;
     }
 }

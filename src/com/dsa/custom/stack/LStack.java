@@ -1,15 +1,15 @@
 package com.dsa.custom.stack;
 
-import com.dsa.custom.list.linked.Link;
+import com.dsa.custom.list.linked.dlinked.DLink;
 
 // Linked stack implementation
-class LStack<E> implements Stack<E> {
-    private Link<E> top;          // Pointer to first element
+public class LStack<E> implements Stack<E> {
+    private DLink<E> top;          // Pointer to first element
     private int size;             // Number of elements
 
     //Constructors
     public LStack() {
-        top = null;
+        top = new DLink<>(null, null);
         size = 0;
     }
 
@@ -18,29 +18,45 @@ class LStack<E> implements Stack<E> {
         this.size = size;
     }
 
-    public void clear() {
+    @Override
+    public void clear() {// Reinitialize stack
         top = null;
-    } // Reinitialize stack
+    }
 
+    @Override
     public void push(E it) {      // Put "it" on stack
-        top = new Link<>(it, top);
+        DLink<E> tempTopValue = new DLink<>(it, null, null);
+        tempTopValue.setPrev(top);
+        this.top = tempTopValue;
         size++;
     }
 
+    @Override
     public E pop() {              // Remove "it" from stack
-        assert top != null : "Stack is empty";
+        if (isStackEmpty()) return null;
+
         E it = top.element();
-        top = top.next();
+        top = top.prev();
         size--;
         return it;
     }
 
-    public E topValue() {
-        assert top != null : "Stack is empty";
-        return top.element();
+    private boolean isStackEmpty() {
+        if (size == 0) {
+            System.out.println("Stack is empty");
+            return true;
+        }
+        return false;
     }
 
+    @Override
+    public E topValue() {
+        if (isStackEmpty()) return null;
+        return top.next().element();
+    }
+
+    @Override
     public int length() {
-        return size;
-    } // Return length
+        return size; // Return length
+    }
 }

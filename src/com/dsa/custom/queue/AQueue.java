@@ -1,7 +1,7 @@
 package com.dsa.custom.queue;
 
 // Array-based queue implementation
-class AQueue<E> implements Queue<E> {
+public class AQueue<E> implements Queue<E> {
     private static final int defaultSize = 10;
     private final int maxSize;
     private final E[] listArray;
@@ -9,17 +9,17 @@ class AQueue<E> implements Queue<E> {
     private int rear;
 
     // Maximum size of queue
-// Index of front element
-// Index of rear element
-// Array holding queue elements
-// Constructors
-    AQueue() {
+    // Index of front element
+    // Index of rear element
+    // Array holding queue elements
+    // Constructors
+    public AQueue() {
         this(defaultSize);
     }
 
+    // For generic array
     @SuppressWarnings("unchecked")
-        // For generic array
-    AQueue(int size) {
+    public AQueue(int size) {
         maxSize = size + 1;
         rear = 0;
         front = 1;
@@ -32,20 +32,37 @@ class AQueue<E> implements Queue<E> {
     }
 
     public void enqueue(E it) {  // Put "it" in queue
-        assert ((rear + 2) % maxSize) != front : "Queue is full";
+        if (isQueueFull()) return;
+
         rear = (rear + 1) % maxSize; // Circular increment
         listArray[rear] = it;
     }
 
+    private boolean isQueueFull() {
+        if (((rear + 2) % maxSize) == front) {
+            System.out.println("Queue is full");
+            return true;
+        }
+        return false;
+    }
+
     public E dequeue() {         // Take element out of queue
-        assert length() != 0 : "Queue is empty";
+        if (isQueueEmpty()) return null;
         E it = listArray[front];
         front = (front + 1) % maxSize; // Circular increment
         return it;
     }
 
+    private boolean isQueueEmpty() {
+        if (length() == 0) {
+            System.out.println("Queue is empty");
+            return true;
+        }
+        return false;
+    }
+
     public E frontValue() {      // Get front value
-        assert length() != 0 : "Queue is empty";
+        if (isQueueEmpty()) return null;
         return listArray[front];
     }
 

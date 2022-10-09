@@ -1,18 +1,17 @@
 package com.dsa.custom.queue;
 
-
-import com.dsa.custom.list.linked.Link;
+import com.dsa.custom.list.linked.llinked.Link;
 
 // Linked queue implementation
-class LQueue<E> implements Queue<E> {
+public class LQueue<E> implements Queue<E> {
     int size;
     private Link<E> front;
     private Link<E> rear;
 
     // Pointer to front queue node
-// Pointer to rear queuenode
-// Number of elements in queue
-// Constructors
+    // Pointer to rear queueNode
+    // Number of elements in queue
+    // Constructors
     public LQueue() {
         init();
     }
@@ -37,7 +36,8 @@ class LQueue<E> implements Queue<E> {
     }
 
     public E dequeue() {         // remove element from front
-        assert size != 0 : "Queue is empty";
+        if (isQueueEmpty()) return null;
+
         E it = front.next().element();  // Store dequeued value
         front.setNext(front.next().next());  // Advance front
         if (front.next() == null) rear = front; // Last Object
@@ -45,8 +45,16 @@ class LQueue<E> implements Queue<E> {
         return it;                      // Return Object
     }
 
+    private boolean isQueueEmpty() {
+        if (size == 0) {
+            System.out.println("Queue is empty");
+            return true;
+        }
+        return false;
+    }
+
     public E frontValue() {       // Get front element
-        assert size != 0 : "Queue is empty";
+        if (isQueueEmpty()) return null;
         return front.next().element();
     }
 
