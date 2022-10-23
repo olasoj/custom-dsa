@@ -1,15 +1,17 @@
 package com.dsa.misc.concurrency;
 
 import java.util.Arrays;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.*;
 
 public class Bank {
 
     private final double[] accounts;
     private final Lock bankLock;
     private final Condition sufficientFunds;
+
+    private final ReadWriteLock readWriteLock;
+    private final Lock readLock;
+    private final Lock writeLock;
 
     /**
      * Constructs the bank.
@@ -21,7 +23,12 @@ public class Bank {
         accounts = new double[n];
         Arrays.fill(accounts, initialBalance);
         bankLock = new ReentrantLock();
-        sufficientFunds = bankLock.newCondition();
+
+        readWriteLock = new ReentrantReadWriteLock();
+        readLock = readWriteLock.readLock();
+        writeLock = readWriteLock.writeLock();
+
+        sufficientFunds = writeLock.newCondition();
     }
 
     /**
@@ -31,23 +38,22 @@ public class Bank {
      * @param amount the amount to transfer
      */
     public void transfer(int from, int to, double amount) throws InterruptedException {
-        bankLock.lock();
+        writeLock.lock();
         try {
+            System.out.println("Start of transaction  \n");
+
             while (accounts[from] < amount) sufficientFunds.await(); //Re-examine this
 
-            System.out.println(Thread.currentThread() + "\n");
-
             accounts[from] -= amount;
-            System.out.println(Thread.currentThread() + "  ------Transferred --------- \n");
-            System.out.printf(" %10.2f from %d to %d", amount, from, to);
+            System.out.printf("%s transferred ", Thread.currentThread().getName());
+            System.out.printf("%10.2f from Account %d to Account %d%n", amount, from, to);
             accounts[to] += amount;
 
-            System.out.printf(" Total Balance: %10.2f%n", getTotalBalance());
-            System.out.println(Thread.currentThread() + "\n");
-            System.out.println("------End of transaction --------- \n");
+            System.out.printf("Total Balance: %10.2f %n%n", getTotalBalance());
+            System.out.println("End of transaction  \n");
             sufficientFunds.signalAll();
         } finally {
-            bankLock.unlock();
+            writeLock.unlock();
         }
     }
 
@@ -55,14 +61,14 @@ public class Bank {
      * Gets the sum of all account balances. * @return the total balance
      */
     public double getTotalBalance() {
-        bankLock.lock();
+        writeLock.lock();
 
         try {
             double sum = 0;
             for (double a : accounts) sum += a;
             return sum;
         } finally {
-            bankLock.unlock();
+            writeLock.unlock();
         }
     }
 
@@ -70,6 +76,11 @@ public class Bank {
      * Gets the number of accounts in the bank. * @return the number of accounts
      */
     public int size() {
-        return accounts.length;
+        readLock.lock();
+        try {
+            return accounts.length;
+        } finally {
+            readLock.unlock();
+        }
     }
 }
