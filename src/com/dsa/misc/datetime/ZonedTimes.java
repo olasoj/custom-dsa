@@ -30,10 +30,18 @@ public class ZonedTimes {
         System.out.println("anHourLater: " + anHourLater);
         ZonedDateTime meeting = ZonedDateTime.of(LocalDate.of(2013, 10, 31), LocalTime.of(14, 30), ZoneId.of("America/Los_Angeles"));
         System.out.println("meeting: " + meeting);
-        ZonedDateTime nextMeeting = meeting.plus(Duration.ofDays(7));
-// Caution! Won’t work with daylight savings time
+
+        ZonedDateTime nextMeeting = meeting.plus(Duration.ofDays(7));// Caution! Won’t work with daylight savings time
         System.out.println("nextMeeting: " + nextMeeting);
+
         nextMeeting = meeting.plus(Period.ofDays(7)); // OK
         System.out.println("nextMeeting: " + nextMeeting);
+
+        Instant instant1 = nextMeeting.toInstant();
+        System.out.println("meetingInstant: " + instant1);
+
+        Instant nextMeetingInstant = instant1.plus(Duration.ofDays(7)); // OK
+        System.out.println("nextMeetingInstant: " + nextMeetingInstant);
+        System.out.println("nextMeetingZone: " + nextMeetingInstant.atZone(ZoneId.of("America/Los_Angeles")));
     }
 }
