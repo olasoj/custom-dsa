@@ -1,13 +1,16 @@
 package com.dsa;
 
+import com.dsa.custom.dictionaries.KVPair;
 import com.dsa.custom.queue.AQueue;
 import com.dsa.custom.queue.Queue;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.function.LongFunction;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 public class Main {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
@@ -17,8 +20,10 @@ public class Main {
             .toFormatter()
             .withZone(ZoneId.systemDefault());
 
+
     public static void main(String[] args) {
         // write your code here
+
         Queue<Integer> integerLStack = new AQueue<>();
 
         integerLStack.dequeue();
@@ -51,18 +56,78 @@ public class Main {
         System.out.println();
         System.out.println(zonedDateTimePlusSixMonths.toLocalDateTime()); // 2019-07-03T19:10:16.806
         System.out.println(offsetPlusSixMonths.toLocalDateTime()); // 2019-07-03T19:10:16.806
+
+        KVPair<Instant, Duration> instantDurationKVPair = computeExpectedRunningTIme(instant.minus(Duration.ofDays(2)), instant.plus(Duration.ofHours(4)), instant);
+
+        Instant endTime = instantDurationKVPair.key();
+        Duration between = Duration.between(Instant.now(), endTime);
+
+        System.out.println(endTime);
+        Duration duration = instantDurationKVPair.value();
+        System.out.println(between.toHours());
+        System.out.println(between.toMinutesPart());
+        System.out.println(between.toSecondsPart());
+
+        String formatDuration = DurationFormatUtils.formatDuration(duration.toMillis(), "dd HH:mm:ss:SS");
+        String formatDuration2 = DurationFormatUtils.formatDurationWords(between.toMillis(), true, false);
+        System.out.println(formatDuration);
+        System.out.println(formatDuration2);
+
+//        AmountFormats.wordBased(d, Locale.getDefault())
+
     }
 
-    public long measureSumPerf(LongFunction<Long> adder, long n) {
-        long fastest = Long.MAX_VALUE;
-        for (int i = 0; i < 10; i++) {
-            long start = System.nanoTime();
-            long sum = adder.apply(n);
-            long duration = (System.nanoTime() - start) / 1_000_000;
-            System.out.println("Result: " + sum);
-            if (duration < fastest) fastest = duration;
+    private static KVPair<Instant, Duration> computeExpectedRunningTIme(Instant sessionStartDateTime, Instant expectedSessionEnd, Instant smapleInstant) {
+        Duration expectedDuration = Duration.between(sessionStartDateTime, expectedSessionEnd);
+        Duration runningDuration = Duration.ofSeconds(0);
+
+        SortedMap<Long, Instant> scheduledGraceDates = getScheduledGraceDates(smapleInstant);
+
+        while (!expectedDuration.isNegative() && !expectedDuration.isZero()) {
+            Instant atStartOfTheDay = getAtStartOfTheDay(sessionStartDateTime);
+
+            Duration durationLostBetweenStartOfDayAndStartTime = Duration.between(atStartOfTheDay, sessionStartDateTime);
+            Duration defaultDurationDiffer = Duration.ofDays(1).minus(durationLostBetweenStartOfDayAndStartTime);
+
+            if (!scheduledGraceDates.containsKey(sessionStartDateTime.toEpochMilli())) {
+                Duration tempExpectedDuration = expectedDuration;
+                expectedDuration = expectedDuration.minus(defaultDurationDiffer);
+
+                if (expectedDuration.isZero() || expectedDuration.isNegative())
+                    defaultDurationDiffer = tempExpectedDuration;
+            }
+
+            runningDuration = runningDuration.plus(defaultDurationDiffer);
+            sessionStartDateTime = sessionStartDateTime.plus(defaultDurationDiffer);
         }
-        return fastest;
+
+        return new KVPair<>(sessionStartDateTime, runningDuration);
     }
+
+    private static SortedMap<Long, Instant> getScheduledGraceDates(Instant smapleInstant) {
+        SortedMap<Long, Instant> scheduledGraceDates = new TreeMap<>();
+
+        Instant sample = smapleInstant.minus(Duration.ofDays(2));
+        scheduledGraceDates.put(sample.toEpochMilli(), sample);
+
+        Instant sample2 = smapleInstant.minus(Duration.ofDays(1));
+        scheduledGraceDates.put(sample2.toEpochMilli(), sample2);
+
+        scheduledGraceDates.put(smapleInstant.toEpochMilli(), smapleInstant);
+
+        Instant sample3 = smapleInstant.plus(Duration.ofDays(1));
+        scheduledGraceDates.put(sample3.toEpochMilli(), sample3);
+
+        Instant sample4 = smapleInstant.plus(Duration.ofDays(3));
+        scheduledGraceDates.put(sample4.toEpochMilli(), sample4);
+        return scheduledGraceDates;
+    }
+
+    private static Instant getAtStartOfTheDay(Instant instant) {
+        ZonedDateTime sessionStartZonedDateTime = instant.atZone(ZoneId.systemDefault());
+        ZonedDateTime sessionStartZonedDateTimeAtStartOfTheDay = sessionStartZonedDateTime.toLocalDate().atStartOfDay(sessionStartZonedDateTime.getZone());
+        return sessionStartZonedDateTimeAtStartOfTheDay.toInstant();
+    }
+
 
 }

@@ -1,16 +1,16 @@
 package com.dsa.custom.dictionaries;
 
-class KVPair<K, E> {
+public class KVPair<K, E> {
     private final K key;
     private final E element;
 
     // Constructors
-    KVPair() {
+    public KVPair() {
         key = null;
         element = null;
     }
 
-    KVPair(K key, E element) {
+    public KVPair(K key, E element) {
         this.key = key;
         this.element = element;
     }
