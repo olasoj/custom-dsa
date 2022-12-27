@@ -57,7 +57,8 @@ public class Main {
         System.out.println(zonedDateTimePlusSixMonths.toLocalDateTime()); // 2019-07-03T19:10:16.806
         System.out.println(offsetPlusSixMonths.toLocalDateTime()); // 2019-07-03T19:10:16.806
 
-        KVPair<Instant, Duration> instantDurationKVPair = computeExpectedRunningTIme(instant.minus(Duration.ofDays(2)), instant.plus(Duration.ofHours(4)), instant);
+        KVPair<Instant, Duration> instantDurationKVPair = computeExpectedRunningTIme(instant.minus(Duration.ofDays(2)), instant.plus(Duration.ofHours(4)));
+        KVPair<Instant, Duration> instantDurationKVPair2 = computeExpectedRunningTIme2(instant.minus(Duration.ofDays(2)), instant.plus(Duration.ofHours(4)));
 
         Instant endTime = instantDurationKVPair.key();
         Duration between = Duration.between(Instant.now(), endTime);
@@ -77,11 +78,11 @@ public class Main {
 
     }
 
-    private static KVPair<Instant, Duration> computeExpectedRunningTIme(Instant sessionStartDateTime, Instant expectedSessionEnd, Instant smapleInstant) {
+    private static KVPair<Instant, Duration> computeExpectedRunningTIme(Instant sessionStartDateTime, Instant expectedSessionEnd) {
         Duration expectedDuration = Duration.between(sessionStartDateTime, expectedSessionEnd);
         Duration runningDuration = Duration.ofSeconds(0);
 
-        SortedMap<Long, Instant> scheduledGraceDates = getScheduledGraceDates(smapleInstant);
+        SortedMap<Long, Instant> scheduledGraceDates = getScheduledGraceDates(sessionStartDateTime.plus(Duration.ofDays(2)));
 
         while (!expectedDuration.isNegative() && !expectedDuration.isZero()) {
             Instant atStartOfTheDay = getAtStartOfTheDay(sessionStartDateTime);
@@ -100,6 +101,35 @@ public class Main {
             runningDuration = runningDuration.plus(defaultDurationDiffer);
             sessionStartDateTime = sessionStartDateTime.plus(defaultDurationDiffer);
         }
+
+        return new KVPair<>(sessionStartDateTime, runningDuration);
+    }
+
+    private static KVPair<Instant, Duration> computeExpectedRunningTIme2(Instant sessionStartDateTime, Instant expectedSessionEnd) {
+        Duration runningDuration = Duration.ofSeconds(0);
+        Duration expectedDuration = Duration.between(sessionStartDateTime, expectedSessionEnd);
+
+        SortedMap<Long, Instant> scheduledGraceDates = getScheduledGraceDates(sessionStartDateTime.plus(Duration.ofDays(2)));
+
+        if (!expectedDuration.isNegative() && !expectedDuration.isZero()) {
+            Instant atStartOfTheDay = getAtStartOfTheDay(sessionStartDateTime);
+
+            Duration durationLostBetweenStartOfDayAndStartTime = Duration.between(atStartOfTheDay, sessionStartDateTime);
+            Duration defaultDurationDiffer = Duration.ofDays(1).minus(durationLostBetweenStartOfDayAndStartTime);
+
+            if (!scheduledGraceDates.containsKey(sessionStartDateTime.toEpochMilli())) {
+                Duration tempExpectedDuration = expectedDuration;
+                expectedDuration = expectedDuration.minus(defaultDurationDiffer);
+
+                if (expectedDuration.isZero() || expectedDuration.isNegative())
+                    defaultDurationDiffer = tempExpectedDuration;
+            }
+
+            runningDuration = runningDuration.plus(defaultDurationDiffer);
+            sessionStartDateTime = sessionStartDateTime.plus(defaultDurationDiffer);
+
+        }
+        computeExpectedRunningTIme2(sessionStartDateTime, expectedSessionEnd);
 
         return new KVPair<>(sessionStartDateTime, runningDuration);
     }

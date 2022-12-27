@@ -1,5 +1,6 @@
 package com.dsa.misc.concurrency;
 
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DynamicKeyLock<T> implements Lock {
-    private static final ConcurrentHashMap<Object, LockAndCounter> locksMap = new ConcurrentHashMap<>();
+    private static final Map<Object, LockAndCounter> locksMap = new ConcurrentHashMap<>();
 
     private final T key;
 
