@@ -1,6 +1,7 @@
 package com.dsa.misc.concurrency.collection;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -24,7 +25,7 @@ public class BlockingQueueTest {
             String keyword = in.nextLine();
 
             Runnable enumerator = () -> addNonDirFiles(directory);
-            new Thread(enumerator).start();
+            new Thread(enumerator).start(); //This is the producer
 
             for (int i = 1; i <= SEARCH_THREADS; i++) {
                 Runnable searcher = () -> searchDummyFile(keyword);
@@ -66,7 +67,7 @@ public class BlockingQueueTest {
      *
      * @param directory the directory in which to start
      */
-    public static void enumerate(Path directory) throws IOException, InterruptedException {
+    public static void enumerate(Path directory) throws IOException, InterruptedException { // e are the file to the queue
         try (Stream<Path> children = Files.list(directory)) {
             for (Path child : children.collect(Collectors.toList())) {
                 if (Files.isDirectory(child)) enumerate(child);
@@ -81,13 +82,13 @@ public class BlockingQueueTest {
      * @param keyword the keyword to search for
      */
     public static void search(Path file, String keyword) throws IOException {
-        try (var in = new Scanner(file, "UTF-8")) {
+        try (var in = new Scanner(file, StandardCharsets.UTF_8)) {
             int lineNumber = 0;
             while (in.hasNextLine()) {
                 lineNumber++;
                 String line = in.nextLine();
                 if (line.contains(keyword))
-                    System.out.printf("%s:%d:%s%n", file, lineNumber, line);
+                    System.out.printf("%s: ---- %d: ---- %s%n", file, lineNumber, line);
             }
         }
     }

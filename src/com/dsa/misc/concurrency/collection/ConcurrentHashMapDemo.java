@@ -20,6 +20,7 @@ public class ConcurrentHashMapDemo {
             while (in.hasNext()) {
                 String word = in.next();
                 map.merge(word, 1L, Long::sum);
+                map.clear();
             }
         } catch (IOException e) {
             e.printStackTrace();
