@@ -1,23 +1,24 @@
-package com.dsa.custom.tree.binary.binarysearchtree;
+package com.dsa.custom.dictionaries.binarysearchtree;
 
 import com.dsa.custom.dictionaries.Dictionary;
 import com.dsa.custom.tree.binary.node.pointer.BinarySearchTreeNode;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Binary Search Tree implementation for Dictionary ADT
  */
 public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dictionary<K, E> {
-    int nodeCount;             // Number of nodes in the BST
+    private final AtomicInteger nodeCount;          // Number of nodes in the BST
     private BinarySearchTreeNode<K, E> root; // Root of the BST
 
     /**
      * Constructor
      */
     public BinarySearchTree() {
-        root = null;
-        nodeCount = 0;
+        this.root = null;
+        nodeCount = new AtomicInteger();
     }
 
     /**
@@ -25,7 +26,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
      */
     public void clear() {
         root = null;
-        nodeCount = 0;
+        nodeCount.set(0);
     }
 
     /**
@@ -36,7 +37,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
      */
     public void insert(K k, E e) {
         root = insertHelp(root, k, e);
-        nodeCount++;
+        nodeCount.getAndIncrement();
     }
 
     /**
@@ -49,7 +50,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
         E temp = findHelp(root, k);   // First find it
         if (temp != null) {
             root = removeHelp(root, k); // Now remove it
-            nodeCount--;
+            nodeCount.getAndDecrement();
         }
         return temp;
     }
@@ -68,11 +69,12 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
      *
      * @return The record removed, null if tree is empty.
      */
+    @Override
     public E removeAny() {
         if (root != null) {
             E temp = root.element();
             root = removeHelp(root, root.key());
-            nodeCount--;
+            nodeCount.getAndDecrement();
             return temp;
         } else return null;
     }
@@ -81,6 +83,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
      * @param k The key value to find.
      * @return Record with key value k, null if none exist.
      */
+    @Override
     public E find(K k) {
         return findHelp(root, k);
     }
@@ -88,8 +91,9 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
     /**
      * @return The number of records in the dictionary.
      */
+    @Override
     public int size() {
-        return nodeCount;
+        return nodeCount.get();
     }
 
     private BinarySearchTreeNode<K, E> insertHelp(BinarySearchTreeNode<K, E> rt, K k, E e) {
@@ -129,7 +133,7 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
                 return rt.left();
             else { // Two children
                 BinarySearchTreeNode<K, E> temp = getMin(rt.right());
-                
+
                 assert !Objects.isNull(temp);
                 rt.setElement(temp.element());
                 rt.setKey(temp.key());
@@ -139,8 +143,15 @@ public class BinarySearchTree<K extends Comparable<? super K>, E> implements Dic
         return rt;
     }
 
-    private BinarySearchTreeNode<K, E> getMin(BinarySearchTreeNode<K, E> right) {
-        return null;
+    private BinarySearchTreeNode<K, E> getMin(BinarySearchTreeNode<K, E> binarySearchTreeNode) {
+        if (Objects.isNull(binarySearchTreeNode)) return null;
+
+        BinarySearchTreeNode<K, E> leftBinarySearchTreeNode = binarySearchTreeNode.left();
+        BinarySearchTreeNode<K, E> rightBinarySearchTreeNode = binarySearchTreeNode.right();
+        if (leftBinarySearchTreeNode.key().compareTo(rightBinarySearchTreeNode.key()) < 0)
+            return leftBinarySearchTreeNode;
+
+        return rightBinarySearchTreeNode;
     }
 
 

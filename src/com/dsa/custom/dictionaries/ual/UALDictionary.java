@@ -1,5 +1,7 @@
-package com.dsa.custom.dictionaries;
+package com.dsa.custom.dictionaries.ual;
 
+import com.dsa.custom.dictionaries.Dictionary;
+import com.dsa.custom.dictionaries.KVPair;
 import com.dsa.custom.list.alist.AList;
 
 /**

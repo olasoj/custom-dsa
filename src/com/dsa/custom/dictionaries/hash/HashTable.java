@@ -1,4 +1,4 @@
-package com.dsa.custom.dictionaries;
+package com.dsa.custom.dictionaries.hash;
 
 public class HashTable<K, E> {
     public HashTable(int maxsize) {
@@ -20,4 +20,9 @@ public class HashTable<K, E> {
     public E hashSearch(K k) {
         return null;
     }
+
+    private int hash(K x) {
+        return (x.hashCode() & 0x7fffffff) % 2;
+    }
+
 }

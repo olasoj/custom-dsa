@@ -1,4 +1,6 @@
-package com.dsa.custom.dictionaries;
+package com.dsa.custom.dictionaries.hash;
+
+import com.dsa.custom.dictionaries.Dictionary;
 
 /**
  * Dictionary implemented using hashing.

@@ -1,15 +1,20 @@
 package com.dsa;
 
 import com.dsa.misc.datetime.ComputeRunningTImeResult;
+import com.dsa.ops.sort.Sort;
+import com.dsa.ops.sort.merge.BottomUpMergeSort;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
     private static final String SIMPLE_DATE_TIME_FORMAT_N = "yyyy-MM-dd HH:mm:ss.SSS";
+    private static final Sort SORT = new BottomUpMergeSort();
 
     public static final DateTimeFormatter OVERDRAFT_DATE_TIME_DATA_STORE_FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
@@ -19,6 +24,9 @@ public class Main {
             .withZone(ZoneId.systemDefault());
 
     public static void main(String[] args) {
+
+        Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 1, 292, 2982, 292862, 2};
+        SORT.sort(array);
         // write your code here
         Instant startTime = Instant.now();
         Instant lastFeeProcessedTimestampInstant =
@@ -63,6 +71,79 @@ public class Main {
         System.out.println(between1);
 
         System.out.println(between1.minus(graceDayDuration));
+
+        String str = "? Olasoji Ige Olubusayo ?";
+        String strR = "Olasoji Ige Olubusayo";
+        String str2 = "Olubusayo Ige Olasoji";
+
+        String[] split = str
+                .replace("?", "")
+                .trim()
+                .split(" ");
+
+        System.out.println("The number char found when splitting: " + split.length);
+        String[] strRSplit = strR
+//                .replaceAll("\\?", "")
+                .split(" ");
+
+        int count = 0;
+
+        List<String> strSplitList = Arrays.asList(split);
+
+        for (String strRR : strRSplit)
+            if (strSplitList.contains(strRR)) count++;
+
+        System.out.println("Name Count Match " + count);
+
+        for (String st : split)
+            System.out.println(st);
+
+//        System.out.println(str.equals(strR));
+
+        String toString = new StringBuilder(str)
+                .append(" ")
+                .toString();
+
+        System.out.println(toString.trim().equalsIgnoreCase(str));
+
+//There are three names returned by BVN
+        //There are two names returned by Paga
+        //We want check if the user appended his/her middle name with his first name or last name
+        //Meaning the user would have more two names assign to that name
+
+//        We want to try strict match
+        // Try and see the number of names exist tallies with the number of BVN names
+        //If the number are equal then all names must match else if 2 then either first name must match
+//         If that does not work try our normal algo flow
+
+
+//        BVN is standard the last name must match.
+//        If the last name matches the first name must also match
+
+
+        String digits = "0123456789";
+        String num = "210";
+
+//        digits.
+        StringBuilder stringBuilder = new StringBuilder(digits);
+
+        char[] chars = digits.toCharArray();
+        char[] chars2 = num.toCharArray();
+
+        int counter = 0;
+        int pointer = 0;
+
+        for (int i = 0; i < chars2.length; i++) {
+
+            for (int j = 0; j < chars.length; j++) {
+                counter++;
+                if (chars2[i] == chars[j]) {
+                    break;
+                }
+            }
+        }
+
+        System.out.println("Counter value" + (counter - (chars2.length - 1)));
 
     }
 
