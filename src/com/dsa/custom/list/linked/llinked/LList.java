@@ -21,25 +21,25 @@ public class LList<E> implements List<E> {
     // Size of list
     // Constructor -- Ignore size
     public LList() {
-        curr = tail = head = new Link<E>(null); // Create header
+        curr = tail = head = new Link<>(null); // Create header
         cnt = 0;
     }
 
     public void clear() {         // Remove all elements
         head.setNext(null);         // Drop access to links
-        curr = tail = head = new Link<E>(null); // Create header
+        curr = tail = head = new Link<>(null); // Create header
         cnt = 0;
     }
 
     // Insert "it" at current position
     public void insert(E it) {
-        curr.setNext(new Link<E>(it, curr.next()));
+        curr.setNext(new Link<>(it, curr.next()));
         if (tail == curr) tail = curr.next();  // New tail
         cnt++;
     }
 
     public void append(E it) { // Append "it" to list
-        tail = tail.setNext(new Link<E>(it, null));
+        tail = tail.setNext(new Link<>(it, null));
         cnt++;
     }
 
@@ -94,7 +94,8 @@ public class LList<E> implements List<E> {
 
     // Move down list to "pos" position
     public void moveToPos(int pos) {
-        assert (pos >= 0) && (pos <= cnt) : "Position out of range";
+        if ((pos >= 0) && (pos <= cnt)) throw new IllegalArgumentException("Position out of range");
+
         curr = head;
         for (int i = 0; i < pos; i++) curr = curr.next();
     }

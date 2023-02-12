@@ -2,7 +2,7 @@ package com.dsa.custom.queue;
 
 // Array-based queue implementation
 public class AQueue<E> implements Queue<E> {
-    private static final int defaultSize = 10;
+    private static final int DEFAULT_SIZE = 10;
     private final int maxSize;
     private final E[] listArray;
     private int front;
@@ -14,7 +14,7 @@ public class AQueue<E> implements Queue<E> {
     // Array holding queue elements
     // Constructors
     public AQueue() {
-        this(defaultSize);
+        this(DEFAULT_SIZE);
     }
 
     // For generic array

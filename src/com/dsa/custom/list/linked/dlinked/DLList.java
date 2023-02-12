@@ -21,20 +21,20 @@ public class DLList<E> implements List<E> {
     // Size of list
     // Constructor -- Ignore size
     public DLList() {
-        curr = tail = head = new DLink<E>(null, null);
+        curr = tail = head = new DLink<>(null, null);
         cnt = 0;
     }
 
     @Override
     public void clear() {
         head.setNext(null);         // Drop access to links
-        curr = tail = head = new DLink<E>(null, null); // Create header
+        curr = tail = head = new DLink<>(null, null); // Create header
         cnt = 0;
     }
 
     // Insert "it" at current position
     public void insert(E it) {
-        curr.setNext(new DLink<E>(it, curr.next(), curr));
+        curr.setNext(new DLink<>(it, curr.next(), curr));
 
         if (curr.next().next() != null)
             curr.next().next().setPrev(curr.next());
@@ -44,7 +44,7 @@ public class DLList<E> implements List<E> {
     }
 
     public void append(E it) { // Append "it" to list
-        tail.setNext(new DLink<E>(it, null, tail));
+        tail.setNext(new DLink<>(it, null, tail));
         tail = tail.next();
         cnt++;
     }
@@ -99,7 +99,8 @@ public class DLList<E> implements List<E> {
 
     // Move down list to "pos" position
     public void moveToPos(int pos) {
-        assert (pos >= 0) && (pos <= cnt) : "Position out of range";
+        if ((pos >= 0) && (pos <= cnt)) throw new IllegalArgumentException("Position out of range");
+
         curr = head;
         for (int i = 0; i < pos; i++) curr = curr.next();
     }
