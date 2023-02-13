@@ -49,7 +49,7 @@ public class LStack<E> implements Stack<E> {
     @Override
     public E topValue() {
         if (isEmpty()) return null;
-        return top.next().element();
+        return top.element();
     }
 
     @Override
