@@ -14,13 +14,13 @@ public class LStack<E> implements Stack<E> {
     }
 
     public LStack(int size) {
-        top = null;
+        top = new DLink<>(null, null);
         this.size = size;
     }
 
     @Override
     public void clear() {// Reinitialize stack
-        top = null;
+        top = new DLink<>(null, null);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class LStack<E> implements Stack<E> {
 
     @Override
     public E pop() {              // Remove "it" from stack
-        if (isStackEmpty()) return null;
+        if (isEmpty()) return null;
 
         E it = top.element();
         top = top.prev();
@@ -41,17 +41,14 @@ public class LStack<E> implements Stack<E> {
         return it;
     }
 
-    private boolean isStackEmpty() {
-        if (size == 0) {
-            System.out.println("Stack is empty");
-            return true;
-        }
-        return false;
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     @Override
     public E topValue() {
-        if (isStackEmpty()) return null;
+        if (isEmpty()) return null;
         return top.next().element();
     }
 

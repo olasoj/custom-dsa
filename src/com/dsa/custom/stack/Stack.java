@@ -24,6 +24,8 @@ public interface Stack<E> extends Iterable<E> {
      */
     E pop();
 
+    boolean isEmpty();
+
     /**
      * @return A copy of the top element.
      */

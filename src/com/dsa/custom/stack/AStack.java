@@ -30,35 +30,27 @@ public class AStack<E> implements Stack<E> {
     }
 
     public void push(E it) {    // Push "it" onto stack
-        if (isStackFull()) return;
+        if (isFull()) return;
         listArray[top++] = it;
     }
 
-    private boolean isStackFull() {
-        if (top == maxSize) {
-            System.out.println("Stack is full");
-            return true;
-        }
-        return false;
+    private boolean isFull() {
+        return top == maxSize;
     }
 
     public E pop() {            // Pop top element
-        if (isStackEmpty()) return null;
+        if (isEmpty()) return null;
         return listArray[--top];
     }
 
     public E topValue() {       // Return top element
-        if (isStackEmpty()) return null;
+        if (isEmpty()) return null;
         return listArray[top - 1];
 
     }
 
-    private boolean isStackEmpty() {
-        if (top == 0) {
-            System.out.println("Stack is empty");
-            return true;
-        }
-        return false;
+    public boolean isEmpty() {
+        return top == 0;
     }
 
     public int length() {
