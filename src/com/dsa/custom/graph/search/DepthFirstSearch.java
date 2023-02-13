@@ -2,7 +2,9 @@ package com.dsa.custom.graph.search;
 
 import com.dsa.custom.graph.Graph;
 
-public class DepthFirstSearch {
+import java.util.Iterator;
+
+public class DepthFirstSearch implements GraphSearch {
 
     //Change this to a stack of objects.
     private final boolean[] marked;
@@ -13,22 +15,28 @@ public class DepthFirstSearch {
         dfs(graph, s);
     }
 
+    //We are using Java function (stack) to recursively
     private void dfs(Graph graph, int v) {
         marked[v] = true;
         count++;
 
-        while (graph.first(v) != 0) {
-            if (!marked[v]) dfs(graph, v);
+        while (graph.first(v) != graph.noOfVertices()) {
             v = graph.first(v);
+            if (!marked[v]) dfs(graph, v);
         }
-//        for (int w : graph.adj(v))
-//            if (!marked[w]) dfs(graph, w);
+
+        for (Iterator<Integer> it = graph.iterator(v); it.hasNext(); ) {
+            int w = it.next();
+            if (!marked[w]) dfs(graph, w);
+        }
     }
 
+    @Override
     public boolean marked(int w) {
         return marked[w];
     }
 
+    @Override
     public int count() {
         return count;
     }

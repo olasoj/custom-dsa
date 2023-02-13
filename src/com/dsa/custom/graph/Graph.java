@@ -1,5 +1,7 @@
 package com.dsa.custom.graph;
 
+import java.util.Iterator;
+
 public interface Graph {
     void init(int n); //Init to n vertices
 
@@ -22,5 +24,19 @@ public interface Graph {
     void setMark(int v, int val); // Set Mark for v
 
     int getMark(int v);           // Get Mark for v
+
+    default Iterator<Integer> iterator(int v) {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return first(v) == noOfVertices();
+            }
+
+            @Override
+            public Integer next() {
+                return first(v);
+            }
+        };
+    }
 }
 

@@ -1,6 +1,9 @@
 package com.dsa.custom.stack;
 
-public interface Stack<E> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public interface Stack<E> extends Iterable<E> {
     /**
      * Reinitialize the stack.  The user is responsible for
      * reclaiming the storage used by the stack elements.
@@ -30,4 +33,20 @@ public interface Stack<E> {
      * @return The number of elements in the stack.
      */
     int length();
+
+    @Override
+    default Iterator<E> iterator() {
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                return length() > 0;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                return pop();
+            }
+        };
+    }
 }

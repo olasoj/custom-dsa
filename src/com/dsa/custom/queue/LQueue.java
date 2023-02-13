@@ -21,8 +21,13 @@ public class LQueue<E> implements Queue<E> {
     } // Ignore size
 
     private void init() {              // Initialize queue
-        front = rear = new Link<E>(null);
+        front = rear = new Link<>(null);
         size = 0;
+    }
+
+    @Override
+    public boolean isFull() {
+        return false;
     }
 
     public void clear() {
@@ -30,13 +35,13 @@ public class LQueue<E> implements Queue<E> {
     }   // Reinitialize queue
 
     public void enqueue(E it) {  // Put element on rear
-        rear.setNext(new Link<E>(it, null));
+        rear.setNext(new Link<>(it, null));
         rear = rear.next();
         size++;
     }
 
     public E dequeue() {         // remove element from front
-        if (isQueueEmpty()) return null;
+        if (isEmpty()) return null;
 
         E it = front.next().element();  // Store dequeued value
         front.setNext(front.next().next());  // Advance front
@@ -45,16 +50,12 @@ public class LQueue<E> implements Queue<E> {
         return it;                      // Return Object
     }
 
-    private boolean isQueueEmpty() {
-        if (size == 0) {
-            System.out.println("Queue is empty");
-            return true;
-        }
-        return false;
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     public E frontValue() {       // Get front element
-        if (isQueueEmpty()) return null;
+        if (isEmpty()) return null;
         return front.next().element();
     }
 

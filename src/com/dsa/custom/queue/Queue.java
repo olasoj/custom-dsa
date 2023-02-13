@@ -17,6 +17,8 @@ public interface Queue<E> {
      */
     void enqueue(E it);
 
+    boolean isFull();
+
     /**
      * Remove and return element at the front of the queue.
      *
@@ -33,5 +35,7 @@ public interface Queue<E> {
      * @return The number of elements in the queue.
      */
     int length();
+
+    boolean isEmpty();
 }
 

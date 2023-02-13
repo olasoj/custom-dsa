@@ -3,16 +3,11 @@ package com.dsa.custom.queue;
 // Array-based queue implementation
 public class AQueue<E> implements Queue<E> {
     private static final int DEFAULT_SIZE = 10;
-    private final int maxSize;
-    private final E[] listArray;
-    private int front;
-    private int rear;
+    private final int maxSize;  // Maximum size of queue
+    private final E[] listArray;    // Array holding queue elements
+    private int front;    // Index of front element
+    private int rear;    // Index of rear element
 
-    // Maximum size of queue
-    // Index of front element
-    // Index of rear element
-    // Array holding queue elements
-    // Constructors
     public AQueue() {
         this(DEFAULT_SIZE);
     }
@@ -32,28 +27,25 @@ public class AQueue<E> implements Queue<E> {
     }
 
     public void enqueue(E it) {  // Put "it" in queue
-        if (isQueueFull()) return;
+        if (isFull()) return;
 
         rear = (rear + 1) % maxSize; // Circular increment
         listArray[rear] = it;
     }
 
-    private boolean isQueueFull() {
-        if (((rear + 2) % maxSize) == front) {
-            System.out.println("Queue is full");
-            return true;
-        }
-        return false;
+    @Override
+    public boolean isFull() {
+        return ((rear + 2) % maxSize) == front;
     }
 
     public E dequeue() {         // Take element out of queue
-        if (isQueueEmpty()) return null;
+        if (isEmpty()) return null;
         E it = listArray[front];
         front = (front + 1) % maxSize; // Circular increment
         return it;
     }
 
-    private boolean isQueueEmpty() {
+    public boolean isEmpty() {
         if (length() == 0) {
             System.out.println("Queue is empty");
             return true;
@@ -62,7 +54,7 @@ public class AQueue<E> implements Queue<E> {
     }
 
     public E frontValue() {      // Get front value
-        if (isQueueEmpty()) return null;
+        if (isEmpty()) return null;
         return listArray[front];
     }
 

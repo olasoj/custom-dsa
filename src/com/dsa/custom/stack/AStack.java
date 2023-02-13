@@ -4,7 +4,7 @@ package com.dsa.custom.stack;
  * Array-based stack implementation
  */
 public class AStack<E> implements Stack<E> {
-    private static final int defaultSize = 10;
+    private static final int DEFAULT_SIZE = 10;
     private final int maxSize;
     private final E[] listArray;
     private int top;
@@ -14,7 +14,7 @@ public class AStack<E> implements Stack<E> {
     // Array holding stack
     // Constructors
     public AStack() {
-        this(defaultSize);
+        this(DEFAULT_SIZE);
     }
 
     // Generic array allocation

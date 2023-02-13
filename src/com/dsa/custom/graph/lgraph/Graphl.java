@@ -4,7 +4,7 @@ import com.dsa.custom.graph.Graph;
 
 public class Graphl implements Graph {
 
-    public int[] mark;
+    private int[] mark;
     private GraphList<Edge>[] vertex;
     private int numEdge;
 
