@@ -2,7 +2,7 @@ package com.dsa.custom.graph.lgraph;
 
 
 // Edge class for Adjacency List graph representation
-class Edge {
+public class Edge {
     private final int vert;
     private final int wt;
 

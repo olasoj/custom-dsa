@@ -2,26 +2,24 @@ package com.dsa;
 
 import com.dsa.misc.datetime.ComputeRunningTImeResult;
 import com.dsa.ops.sort.Sort;
-import com.dsa.ops.sort.merge.BottomUpMergeSort;
+import com.dsa.ops.sort.heap.HeapSort;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
     private static final String SIMPLE_DATE_TIME_FORMAT_N = "yyyy-MM-dd HH:mm:ss.SSS";
-    private static final Sort SORT = new BottomUpMergeSort();
-
     public static final DateTimeFormatter OVERDRAFT_DATE_TIME_DATA_STORE_FORMATTER = new DateTimeFormatterBuilder()
             .parseCaseInsensitive()
             .append(DateTimeFormatter.ofPattern(Main.SIMPLE_DATE_TIME_FORMAT_N))
             .parseDefaulting(ChronoField.NANO_OF_DAY, 0)
             .toFormatter()
             .withZone(ZoneId.systemDefault());
+    private static final Sort SORT = new HeapSort();
 
     public static void main(String[] args) {
 
@@ -72,79 +70,21 @@ public class Main {
 
         System.out.println(between1.minus(graceDayDuration));
 
-        String str = "? Olasoji Ige Olubusayo ?";
-        String strR = "Olasoji Ige Olubusayo";
-        String str2 = "Olubusayo Ige Olasoji";
+        Map<Object, Object> objectObjectMap = Collections.emptyMap();
 
-        String[] split = str
-                .replace("?", "")
-                .trim()
-                .split(" ");
+        Map<Object, Object> of = Map.of();
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put(8, 90);
 
-        System.out.println("The number char found when splitting: " + split.length);
-        String[] strRSplit = strR
-//                .replaceAll("\\?", "")
-                .split(" ");
+        boolean instance = Map.of().getClass().isInstance(objectObjectHashMap);
+        of = (instance) ? new HashMap<>(of) : objectObjectHashMap;
 
-        int count = 0;
+        of.put(0, 9);
+        System.out.println(instance);
+    }
 
-        List<String> strSplitList = Arrays.asList(split);
-
-        for (String strRR : strRSplit)
-            if (strSplitList.contains(strRR)) count++;
-
-        System.out.println("Name Count Match " + count);
-
-        for (String st : split)
-            System.out.println(st);
-
-//        System.out.println(str.equals(strR));
-
-        String toString = new StringBuilder(str)
-                .append(" ")
-                .toString();
-
-        System.out.println(toString.trim().equalsIgnoreCase(str));
-
-//There are three names returned by BVN
-        //There are two names returned by Paga
-        //We want check if the user appended his/her middle name with his first name or last name
-        //Meaning the user would have more two names assign to that name
-
-//        We want to try strict match
-        // Try and see the number of names exist tallies with the number of BVN names
-        //If the number are equal then all names must match else if 2 then either first name must match
-//         If that does not work try our normal algo flow
-
-
-//        BVN is standard the last name must match.
-//        If the last name matches the first name must also match
-
-
-        String digits = "0123456789";
-        String num = "210";
-
-//        digits.
-        StringBuilder stringBuilder = new StringBuilder(digits);
-
-        char[] chars = digits.toCharArray();
-        char[] chars2 = num.toCharArray();
-
-        int counter = 0;
-        int pointer = 0;
-
-        for (int i = 0; i < chars2.length; i++) {
-
-            for (int j = 0; j < chars.length; j++) {
-                counter++;
-                if (chars2[i] == chars[j]) {
-                    break;
-                }
-            }
-        }
-
-        System.out.println("Counter value" + (counter - (chars2.length - 1)));
-
+    public static List<String> getNoMatters() {
+        return Collections.unmodifiableList(new ArrayList<>());
     }
 
     private static ZonedDateTime toZonedDateTime(Instant sessionStartInstant, String zoneId) {
@@ -212,6 +152,3 @@ public class Main {
     }
 
 }
-//Start Time: 2023-01-13T010:37:47.564407Z
-//Next pay at 2023-01-13 10:37:47.564 of usage between  2023-01-13 10:37:47.564  and 2023-01-14 10:37:47.563
-//Next pay at 22023-01-14 10:37:47.564 of usage between  2023-01-14 10:37:47.564  and 2023-01-15 10:37:47.563

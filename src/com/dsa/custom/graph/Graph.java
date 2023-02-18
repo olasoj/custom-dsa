@@ -1,6 +1,7 @@
 package com.dsa.custom.graph;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public interface Graph {
     void init(int n); //Init to n vertices
@@ -34,6 +35,7 @@ public interface Graph {
 
             @Override
             public Integer next() {
+                if (!hasNext()) throw new NoSuchElementException();
                 return first(v);
             }
         };

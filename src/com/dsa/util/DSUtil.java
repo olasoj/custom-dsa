@@ -9,4 +9,8 @@ public class DSUtil {
         a[replacingElementPosition] = a[foundElementPosition];
         a[foundElementPosition] = temp;
     }
+
+    public static <E extends Comparable<? super E>> boolean isLess(E[] a, int i, int j) {
+        return a[i].compareTo(a[j]) < 0;
+    }
 }

@@ -1,4 +1,4 @@
-package com.dsa.custom.dictionaries.binarysearchtree;
+package com.dsa.custom.dictionaries.bst;
 
 import com.dsa.custom.dictionaries.Dictionary;
 import com.dsa.custom.tree.binary.node.pointer.BinarySearchTreeNode;

@@ -13,14 +13,10 @@ public class LStack<E> implements Stack<E> {
         size = 0;
     }
 
-    public LStack(int size) {
-        top = new DLink<>(null, null);
-        this.size = size;
-    }
-
     @Override
     public void clear() {// Reinitialize stack
         top = new DLink<>(null, null);
+        size = 0;
     }
 
     @Override
