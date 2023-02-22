@@ -1,4 +1,4 @@
-package com.dsa;
+package com.dsa.question.hackerank;
 
 
 import java.util.HashMap;
