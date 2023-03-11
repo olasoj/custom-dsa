@@ -6,7 +6,9 @@ public class TreeSetTest {
 
     public static void main(String[] args) {
         Set<Item> parts = new TreeSet<>();
-        parts.add(new Item("Toaster", 1234));
+
+        Item toaster = new Item("Toaster", 1234);
+        parts.add(toaster);
         parts.add(new Item("Widget", 4562));
         parts.add(new Item("Modem", 9912));
         System.out.println(parts);
@@ -17,6 +19,8 @@ public class TreeSetTest {
 
         SortedMap<String, Item> treeMap = new TreeMap<>(Comparator.reverseOrder());
         parts.forEach(item -> treeMap.put(item.getDescription(), item));
+        treeMap.put(toaster.getDescription(), toaster);
+        treeMap.put(toaster.getDescription(), toaster);
 
         treeMap
                 .values()

@@ -1,15 +1,17 @@
 package com.dsa.misc.concurrency;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.*;
+import java.util.logging.Logger;
 
 public class Bank {
+    private static final Logger LOGGER = Logger.getLogger(Bank.class.getSimpleName());
 
     private final double[] accounts;
     private final Lock bankLock;
     private final Condition sufficientFunds;
 
-    private final ReadWriteLock readWriteLock;
     private final Lock readLock;
     private final Lock writeLock;
 
@@ -24,7 +26,7 @@ public class Bank {
         Arrays.fill(accounts, initialBalance);
         bankLock = new ReentrantLock();
 
-        readWriteLock = new ReentrantReadWriteLock();
+        ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         readLock = readWriteLock.readLock();
         writeLock = readWriteLock.writeLock();
 
@@ -39,21 +41,37 @@ public class Bank {
      */
     public void transfer(int from, int to, double amount) throws InterruptedException {
         writeLock.lock();
-        try {
-            System.out.println("Start of transaction  \n");
 
-            while (accounts[from] < amount) sufficientFunds.await(); //Re-examine this
+        boolean await = true;
+
+        try {
+            LOGGER.info("Start of transaction  \n");
+
+            //Re-examine this
+            awaitSufficientBalance(from, amount, await);
 
             accounts[from] -= amount;
-            System.out.printf("%s transferred ", Thread.currentThread().getName());
-            System.out.printf("%10.2f from Account %d to Account %d%n", amount, from, to);
+            String initiator = String.format("%s transferred ", Thread.currentThread().getName());
+            LOGGER.info(initiator);
+
+            String transaction = String.format("%10.2f from Account %d to Account %d%n", amount, from, to);
+            LOGGER.info(transaction);
             accounts[to] += amount;
 
-            System.out.printf("Total Balance: %10.2f %n%n", getTotalBalance());
-            System.out.println("End of transaction  \n");
-            sufficientFunds.signalAll();
+            String balance = String.format("Total Balance: %10.2f %n%n", getTotalBalance());
+            LOGGER.info(balance);
+            LOGGER.info("End of transaction  \n");
         } finally {
+            sufficientFunds.signalAll();
             writeLock.unlock();
+        }
+    }
+
+    private void awaitSufficientBalance(int from, double amount, boolean await) throws InterruptedException {
+        while (accounts[from] < amount) {
+            if (!await) throw new InterruptedException();
+            LOGGER.info(Thread.currentThread().getName() + " going to sleep");
+            await = sufficientFunds.await(15000, TimeUnit.MILLISECONDS);
         }
     }
 
