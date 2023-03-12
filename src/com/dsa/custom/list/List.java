@@ -1,9 +1,11 @@
 package com.dsa.custom.list;
 
+import java.util.Iterator;
+
 /**
  * List ADT
  */
-public interface List<E> {
+public interface List<E> extends Iterable<E> {
     /**
      * Remove all contents from the list, so it is once again
      * empty. Client is responsible for reclaiming storage
@@ -79,4 +81,19 @@ public interface List<E> {
      * @return The current element.
      */
     E getValue();
+
+    //TODO Complete
+    default Iterator<E> iterator() {
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public E next() {
+                return null;
+            }
+        };
+    }
 }

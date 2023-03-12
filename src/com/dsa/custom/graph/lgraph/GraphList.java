@@ -3,6 +3,8 @@ package com.dsa.custom.graph.lgraph;
 import com.dsa.custom.list.List;
 import com.dsa.custom.list.linked.llinked.LList;
 
+import java.util.Iterator;
+
 public class GraphList<E extends Edge> implements List<E> {
 
     private final List<E> eList;
@@ -69,5 +71,10 @@ public class GraphList<E extends Edge> implements List<E> {
     @Override
     public E getValue() {
         return eList.getValue();
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return List.super.iterator();
     }
 }

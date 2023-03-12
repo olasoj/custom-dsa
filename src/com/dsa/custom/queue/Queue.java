@@ -1,9 +1,11 @@
 package com.dsa.custom.queue;
 
+import java.util.Iterator;
+
 /**
  * Queue ADT
  */
-public interface Queue<E> {
+public interface Queue<E> extends Iterable<E> {
     /**
      * Reinitialize the queue.  The user is responsible for
      * reclaiming the storage used by the queue elements.
@@ -37,5 +39,19 @@ public interface Queue<E> {
     int length();
 
     boolean isEmpty();
+
+    default Iterator<E> iterator() {
+        return new Iterator<E>() {
+            @Override
+            public boolean hasNext() {
+                return !isEmpty();
+            }
+
+            @Override
+            public E next() {
+                return dequeue();
+            }
+        };
+    }
 }
 
