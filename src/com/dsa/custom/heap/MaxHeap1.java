@@ -58,7 +58,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public int leftChild(int pos) {
-        assert pos < n / 2 : "Position has no left child";
+        if (pos >= n / 2) throw new IllegalArgumentException("Position has no left child");
         return 2 * pos + 1;
     }
 
@@ -67,7 +67,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public int rightChild(int pos) {
-        assert pos < (n - 1) / 2 : "Position has no right child";
+        if (pos >= (n - 1) / 2) throw new IllegalArgumentException("Position has no right child");
         return 2 * pos + 2;
     }
 
@@ -76,7 +76,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public int parent(int pos) {
-        assert pos > 0 : "Position has no parent";
+        if (pos <= 0) throw new IllegalArgumentException("Position has no parent");
         return (pos - 1) / 2;
     }
 
@@ -92,7 +92,8 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public void insert(E val) {
-        assert n < size : "Heap is full";
+        if (n >= size) throw new IllegalArgumentException("Heap is full");
+
         int curr = n++;
         heap[curr] = val;                 // Start at end of heap
         // Now sift up until curr’s parent’s key > curr’s key
@@ -108,7 +109,8 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      * Put element in its correct place
      */
     private void siftDown(int pos) {
-        assert (pos >= 0) && (pos < n) : "Illegal heap position";
+        if ((pos < 0) || (pos >= n)) throw new IllegalArgumentException("Illegal heap position");
+
         while (!isLeaf(pos)) {
             int j = leftChild(pos);
             if ((j < (n - 1)) && (heap[j].compareTo(heap[j + 1]) < 0))
@@ -122,7 +124,8 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
 
     @Override
     public E removeMax() {     // Remove maximum value
-        assert n > 0 : "Removing from empty heap";
+        if (n <= 0) throw new IllegalArgumentException("Removing from empty heap");
+
         DSUtil.swap(heap, 0, --n); // Swap maximum with last value
         if (n != 0)      // Not on last element
             siftDown(0);   // Put new heap root val in correct place
@@ -134,7 +137,8 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public E remove(int pos) {
-        assert (pos >= 0) && (pos < n) : "Illegal heap position";
+        if ((pos < 0) || (pos >= n)) throw new IllegalArgumentException("Illegal heap position");
+
         DSUtil.swap(heap, pos, --n); // Swap with last value
         while (heap[pos].compareTo(heap[parent(pos)]) > 0) {
             DSUtil.swap(heap, pos, parent(pos));

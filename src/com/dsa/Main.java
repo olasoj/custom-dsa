@@ -15,6 +15,7 @@ public class Main {
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 1, 292, 2982, 292862, 2};
         SORT.sort(array);
 
-    }
+        System.out.println(Long.MAX_VALUE);
 
+    }
 }
