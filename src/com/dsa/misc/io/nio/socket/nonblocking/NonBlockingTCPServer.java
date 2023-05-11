@@ -51,21 +51,18 @@ public class NonBlockingTCPServer {
                     //wait for incoming events
                     selector.select();
                     //there is something to process on selected keys
-                    Iterator keys = selector.selectedKeys().iterator();
+                    Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                    Iterator<SelectionKey> keys = selectionKeys.iterator();
+
                     while (keys.hasNext()) {
-                        SelectionKey key = (SelectionKey) keys.next();
+                        SelectionKey selectionKey = keys.next();
                         //prevent the same key from coming up again
                         keys.remove();
-                        if (!key.isValid()) {
-                            continue;
-                        }
-                        if (key.isAcceptable()) {
-                            acceptOP(key, selector);
-                        } else if (key.isReadable()) {
-                            this.readOP(key);
-                        } else if (key.isWritable()) {
-                            this.writeOP(key);
-                        }
+                        if (!selectionKey.isValid()) continue;
+
+                        if (selectionKey.isAcceptable()) acceptOP(selectionKey, selector);
+                        else if (selectionKey.isReadable()) this.readOP(selectionKey);
+                        else if (selectionKey.isWritable()) this.writeOP(selectionKey);
                     }
                     boolean before = INSTANT.plus(Duration.ofMinutes(2)).isBefore(Instant.now());
                     if (before) break;

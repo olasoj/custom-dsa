@@ -34,7 +34,10 @@ public class ExecutorDemo {
      */
     public static Set<Path> descendants(Path rootDir) throws IOException {
         try (Stream<Path> entries = Files.walk(rootDir)) {
-            return entries.filter(Files::isRegularFile)
+            return entries
+                    .parallel()
+                    .peek(p -> System.out.println(Thread.currentThread().getName()))
+                    .filter(Files::isRegularFile)
                     .collect(Collectors.toSet());
         }
     }
@@ -85,8 +88,8 @@ public class ExecutorDemo {
                 tasks.add(task);
             }
 
-            ExecutorService executor = Executors.newCachedThreadPool();
-//            ExecutorService executor = Executors.newFixedThreadPool(30);
+//            ExecutorService executor = Executors.newCachedThreadPool();
+            ExecutorService executor = Executors.newFixedThreadPool(30);
 
             // use a single thread executor instead to see if multiple threads
             // speed up the search

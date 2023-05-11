@@ -1,7 +1,9 @@
 package com.dsa.question.hackerank.unnamed;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.dsa.misc.Factorial.fact;
 
@@ -21,6 +23,35 @@ public class Question1 {
 
         System.out.println(i);
 
+        int i1 = countPairs(list, 2);
+        System.out.println(i1);
+
+    }
+
+    static int countPairs(List<Integer> projectCosts, int target) {
+        if (projectCosts == null) return 0;
+        if (projectCosts.size() > 10000) return 0;
+
+        int count = 0;
+        int lenght = projectCosts.size();
+
+        Map<Integer, Integer> calues = new HashMap<>();
+
+        for (Integer projectCost : projectCosts) {
+            for (int i = 1; i < lenght; i++) {
+                Integer otherValue = projectCosts.get(i);
+                int abs = Math.abs(projectCost - otherValue);
+
+                if (abs == target) {
+                    int min = Math.min(projectCost, otherValue);
+                    int max = Math.max(projectCost, otherValue);
+                    calues.putIfAbsent(min, max);
+                }
+
+            }
+        }
+
+        return calues.size();
     }
 
     public static int countTeams(List<Integer> skills, int minPlayers, int minLevel, int maxLevel) {
