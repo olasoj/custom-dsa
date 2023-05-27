@@ -2,20 +2,27 @@ package com.dsa.misc;
 
 public class Factorial {
 
-    // this is a recursive method
-    //  fact(n - 1) * n
-    public static int fact(int n) {
+    public static int simpleFact(int n) {
         return (n <= 1) ? 1 : fact(n - 1) * n;
     }
 
-    // this is a Corecursion  method
+    // this is a recursive method
+    //  fact(n - 1) * n
+    public static int fact(int n) {
+        return fact(n, 1);
+    }
+
+    public static int fact(int n, int accumulator) {
+        if (n <= 1) return 1;
+        return fact(n - 1, accumulator * n);
+    }
+
+    // this is a Core-cursion  method
     //  fact(n - 1) * n
     int factCorecursion(int n) {
         int temp = n;
 
-        if (n < 1) return n;
-        while (temp > 1) {
-            temp--;
+        while (temp-- > 1) {
             n = n * temp;
         }
         return n;
