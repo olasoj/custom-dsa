@@ -1,4 +1,4 @@
-package com.dsa.misc.concurrency;
+package com.dsa.misc.concurrency.forkjoin;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
@@ -14,7 +14,7 @@ public class ForkJoinTest {
         for (int i = 0; i < SIZE; i++)
             numbers[i] = Math.random();
 
-        var counter = new Counter(numbers, 0, numbers.length, x -> x > 0.5);
+        var counter = new FibonacciRecursiveTask(0);
         var pool = new ForkJoinPool();
         pool.invoke(counter);
         System.out.println(counter.join());
@@ -45,8 +45,8 @@ class Counter extends RecursiveTask<Integer> {
             return count;
         } else {
             int mid = (from + to) / 2;
-            var first = new Counter(values, from, mid, filter);
-            var second = new Counter(values, mid, to, filter);
+            var first = new FibonacciRecursiveTask(from);
+            var second = new FibonacciRecursiveTask(mid);
             ForkJoinTask.invokeAll(first, second);
             return first.join() + second.join();
         }

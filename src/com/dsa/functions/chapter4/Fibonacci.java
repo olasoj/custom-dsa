@@ -19,7 +19,7 @@ public class Fibonacci {
         Instant end = Instant.now();
 
         Duration between = Duration.between(start, end);
-        System.out.println(between.toMillis());
+        System.out.println("Operation took " + between.toMillis() + "Mills");
     }
 
 
@@ -43,10 +43,10 @@ public class Fibonacci {
 
     public static void generateFibonacciSequence() {
 
-        int n = (48);
+        int n = (13);
         for (int i = 1; i <= n; i++) {
             BigInteger fib = fib(i);
-            System.out.println(fib);
+            System.out.println("Fibonacci result for " + i + " equals " + fib);
         }
     }
 
