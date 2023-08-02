@@ -1,6 +1,8 @@
-package com.dsa.question.hackerank.unnamed;
+package com.dsa.question.hackerank.remotebase;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Question2 {
 
@@ -20,17 +22,22 @@ public class Question2 {
     }
 
     public static List<Integer> rearrange(List<Integer> arr) {
-        Collections.sort(arr);
 
-        Set<Object> set = new HashSet<>(arr);
+        if (arr.size() < 3) return arr;
+        List<Integer> dest = new ArrayList<>(arr);
+        Collections.copy(dest, arr);
+        Collections.sort(dest);
 
-        int size = arr.size() - 1;
+        int indexOfMin = arr.indexOf(dest.get(0));
+        int indexOfNextMin = arr.indexOf(dest.get(1));
 
-        swap(arr, 0, 2);
+        int size = arr.size();
+
+        swap(arr, indexOfMin, 2);
         if (size % 2 == 0) {
-            swap(arr, 1, size - 2);
+            swap(arr, indexOfNextMin, size - 2);
         } else {
-            swap(arr, 1, size - 1);
+            swap(arr, indexOfNextMin, size - 1);
         }
 
         return arr;

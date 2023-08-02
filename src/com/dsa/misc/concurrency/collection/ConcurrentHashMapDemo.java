@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +21,7 @@ public class ConcurrentHashMapDemo {
             while (in.hasNext()) {
                 String word = in.next();
                 map.merge(word, 1L, Long::sum);
-                map.clear();
+                map.computeIfAbsent(word, k -> new LongAdder().longValue());
             }
         } catch (IOException e) {
             e.printStackTrace();

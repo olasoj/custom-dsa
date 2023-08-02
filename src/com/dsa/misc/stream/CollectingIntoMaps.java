@@ -22,7 +22,9 @@ public class CollectingIntoMaps {
                 .collect(Collectors.toMap(Person::getId, Function.identity()));
         System.out.println("idToPerson: " + idToPerson.getClass().getName() + idToPerson);
 
-        idToPerson = people().collect(Collectors.toMap(Person::getId, Function.identity(),
+        idToPerson = people().collect(Collectors.toMap(
+                Person::getId,
+                Function.identity(),
                 (existingValue, newValue) -> {
                     throw new IllegalStateException();
                 },
@@ -40,13 +42,16 @@ public class CollectingIntoMaps {
 
         locales = Stream.of(Locale.getAvailableLocales());
         Map<String, Set<String>> countryLanguageSets = locales.collect(
-                Collectors.toMap(Locale::getDisplayCountry,
-                        l -> Set.of(l.getDisplayLanguage()), (a, b) ->
-                        { // union of a and b
+                Collectors.toMap(
+                        Locale::getDisplayCountry,
+                        l -> Set.of(l.getDisplayLanguage()),
+                        (a, b) -> { // union of a and b
                             Set<String> union = new HashSet<>(a);
                             union.addAll(b);
                             return union;
-                        }));
+                        }
+                )
+        );
         System.out.println("countryLanguageSets: " + countryLanguageSets);
     }
 

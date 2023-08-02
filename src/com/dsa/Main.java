@@ -8,6 +8,8 @@ import com.dsa.ops.sort.heap.HeapSort;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
+import static java.lang.System.out;
+
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
@@ -20,7 +22,7 @@ public class Main {
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 1, 292, 2982, 292862, 2};
         SORT.sort(array);
 
-        System.out.println(Long.MAX_VALUE);
+        out.println(Long.MAX_VALUE);
 
         int gs = 14105823;
         int lemonade = 3969332;
@@ -30,9 +32,9 @@ public class Main {
         ReentrantLock lockWithOffset2 = REENTRANT_STRIPED_LOCK.getLock(lemonade);
         ReentrantLock lockWithOffset3 = REENTRANT_STRIPED_LOCK.getLock(bras);
 
-        System.out.println(lockWithOffset);
-        System.out.println(lockWithOffset2);
-        System.out.println(lockWithOffset3);
+        out.println(lockWithOffset);
+        out.println(lockWithOffset2);
+        out.println(lockWithOffset3);
     }
 
 

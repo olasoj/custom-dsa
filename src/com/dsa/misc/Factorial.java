@@ -3,7 +3,7 @@ package com.dsa.misc;
 public class Factorial {
 
     public static int simpleFact(int n) {
-        return (n <= 1) ? 1 : fact(n - 1) * n;
+        return (n <= 1) ? 1 : simpleFact(n - 1) * n;
     }
 
     // this is a recursive method

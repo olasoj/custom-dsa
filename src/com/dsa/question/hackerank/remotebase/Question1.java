@@ -1,11 +1,6 @@
-package com.dsa.question.hackerank.unnamed;
+package com.dsa.question.hackerank.remotebase;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.dsa.misc.Factorial.fact;
+import java.util.*;
 
 public class Question1 {
 
@@ -19,7 +14,9 @@ public class Question1 {
         list.add(6);
         list.add(9);
 
-        int i = countTeams(list, 3, 5, 9);
+        List<Integer> integers = List.of(4, 8, 5, 6);
+
+        int i = countTeams(integers, 1, 5, 7);
 
         System.out.println(i);
 
@@ -56,19 +53,26 @@ public class Question1 {
 
     public static int countTeams(List<Integer> skills, int minPlayers, int minLevel, int maxLevel) {
 
-        StringBuilder stringBuilder = new StringBuilder();
+        Set<Integer> skillsSet = new HashSet<>();
 
         for (Integer skill : skills)
             if (skill >= minLevel && skill <= maxLevel)
-                stringBuilder.append(skill);
+                skillsSet.add(skill);
 
-        String toString = stringBuilder.toString();
-        return combinations(toString, minPlayers);
+
+        int counter = 0;
+        for (int i = minPlayers; i <= skillsSet.size(); i++) {
+            counter = counter + combinations(skillsSet.size(), i);
+        }
+        return counter;
     }
 
-    private static int combinations(String toString, int minPlayers) {
-        int length = toString.length();
+    private static int combinations(Integer length, int minPlayers) {
         return fact(length) / (fact(minPlayers) * fact(length - minPlayers));
+    }
+
+    public static int fact(int n) {
+        return (n <= 1) ? 1 : fact(n - 1) * n;
     }
 
 
