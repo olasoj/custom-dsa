@@ -1,5 +1,7 @@
 package com.dsa.question.hackerank.celluliant;
 
+import com.dsa.question.PalindromeUtil;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,14 +25,7 @@ public class PalindromicStrings {
 
             //Civic
             char[] chars = str.toCharArray();
-            boolean notPan = false;
-
-            for (int i = 0; i < str.length() / 2; i++) {
-                if (chars[i] != chars[(chars.length) - (i + 1)]) {
-                    notPan = true;
-                    break;
-                }
-            }
+            boolean notPan = PalindromeUtil.isNotPalindrome(chars);
 
             if (notPan) continue;
             stringsThatArePan.add(str);
@@ -39,4 +34,5 @@ public class PalindromicStrings {
         return stringsThatArePan;
 
     }
+
 }
