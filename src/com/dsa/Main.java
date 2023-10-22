@@ -22,8 +22,6 @@ public class Main {
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 1, 292, 2982, 292862, 2};
         SORT.sort(array);
 
-        out.println(Long.MAX_VALUE);
-
         int gs = 14105823;
         int lemonade = 3969332;
         int bras = 818898;
@@ -35,7 +33,7 @@ public class Main {
         out.println(lockWithOffset);
         out.println(lockWithOffset2);
         out.println(lockWithOffset3);
-    }
 
+    }
 
 }
