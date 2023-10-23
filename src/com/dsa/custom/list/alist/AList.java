@@ -58,11 +58,7 @@ public class AList<E> implements List<E> {
     }
 
     private boolean isListFull() {
-        if (listSize >= maxSize) {
-            System.out.println("List capacity exceeded");
-            return true;
-        }
-        return false;
+        return listSize >= maxSize;
     }
 
     public void append(E it) { // Append "it"
@@ -80,7 +76,10 @@ public class AList<E> implements List<E> {
             return null;
         E it = listArray[curr];      // Copy the element
         // Shift them down
-        IntStream.range(curr, listSize - 1).forEach(i -> listArray[i] = listArray[i + 1]);
+        int bound = listSize - 1;
+        for (int i = curr; i < bound; i++) {
+            listArray[i] = listArray[i + 1];
+        }
         listSize--;                   // Decrement size
         return it;
     }
@@ -108,12 +107,12 @@ public class AList<E> implements List<E> {
 
     // Set current list position to "pos"
     public void moveToPos(int pos) {
-        assert (pos >= 0) && (pos <= listSize) : "Pos out of range";
+        if ((pos < 0) || (pos > listSize)) throw new IllegalArgumentException("Pos out of range");
         curr = pos;
     }
 
     public E getValue() {     // Return current element
-        assert (curr >= 0) && (curr < listSize) : "No current element";
+        if ((curr < 0) || (curr >= listSize)) throw new IllegalStateException("No current element");
         return listArray[curr];
     }
 

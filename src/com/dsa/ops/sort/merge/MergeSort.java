@@ -12,7 +12,7 @@ public interface MergeSort extends Sort {
         int i = lo, j = mid + 1;
 
         for (int k = lo; k <= hi; k++)  // Merge back to array[lo..hi].
-            if (i > mid) array[k] = aux[j++];
+            if (i > mid) array[k] = aux[j++]; //If i has overflown
             else if (j > hi) array[k] = aux[i++];
             else if (less(aux[j], aux[i])) array[k] = aux[j++];
             else array[k] = aux[i++];

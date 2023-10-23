@@ -33,7 +33,7 @@ public class LList<E> implements List<E> {
 
     // Insert "it" at current position
     public void insert(E it) {
-        curr.setNext(new Link<>(it, curr.next()));
+        curr.setNext(new Link<>(it, null));
         if (tail == curr) tail = curr.next();  // New tail
         cnt++;
     }

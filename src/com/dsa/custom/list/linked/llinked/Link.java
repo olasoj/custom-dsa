@@ -1,5 +1,8 @@
 package com.dsa.custom.list.linked.llinked;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 public class Link<E> {
     // Extensions to support freelists
     private static Link FREE_LIST = null;     // Freelist for the class
@@ -51,5 +54,26 @@ public class Link<E> {
         element = null;
         next = FREE_LIST;
         FREE_LIST = this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Link)) return false;
+        Link<?> link = (Link<?>) obj;
+        return Objects.equals(element, link.element) && Objects.equals(next, link.next);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(element, next);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Link.class.getSimpleName() + "[", "]")
+                .add("element=" + element)
+                .add("next=" + next)
+                .toString();
     }
 }

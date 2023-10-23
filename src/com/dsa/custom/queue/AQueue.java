@@ -46,11 +46,7 @@ public class AQueue<E> implements Queue<E> {
     }
 
     public boolean isEmpty() {
-        if (length() == 0) {
-            System.out.println("Queue is empty");
-            return true;
-        }
-        return false;
+        return length() == 0;
     }
 
     public E frontValue() {      // Get front value

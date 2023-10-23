@@ -9,19 +9,20 @@ import static com.dsa.ops.sort.SortType.MERGE;
 public class LegacyMergeSort implements MergeSort {
     private static final int THRESHOLD = 0;
 
-    static <E extends Comparable<? super E>> void mergesort(E[] array, E[] temp, int length, int r) {
-        int mid = (length + r) / 2;
-        if (length == r) return;
-        mergesort(array, temp, length, mid);
+    static <E extends Comparable<? super E>> void mergesort(E[] array, E[] temp, int l, int r) {
+        int mid = (l + r) / 2;
+        if (l == r) return;
+        mergesort(array, temp, l, mid);
         mergesort(array, temp, mid + 1, r); // Mergesort second half
 
         // Copy subarray to temp
-        if (r + 1 - length >= 0) System.arraycopy(array, length, temp, length, r + 1 - length);
+        for (int i = l; i <= r; i++)          // Copy subarray to temp
+            temp[i] = array[i];
 
         // Do the merge operation back to array
-        int i1 = length;
+        int i1 = l;
         int i2 = mid + 1;
-        for (int curr = length; curr <= r; curr++) {
+        for (int curr = l; curr <= r; curr++) {
             if (i1 == mid + 1)              // Left sublist exhausted
                 array[curr] = temp[i2++];
             else if (i2 > r)              // Right sublist exhausted
@@ -37,7 +38,7 @@ public class LegacyMergeSort implements MergeSort {
         //TODO: Revise this.
 
         E[] arrayCopy = Arrays.copyOf(array, array.length);
-        mergesort(array, arrayCopy, array.length, 0);
+        mergesort(array, arrayCopy, 0, array.length - 1);
     }
 
     @Override

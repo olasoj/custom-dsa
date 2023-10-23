@@ -3,8 +3,9 @@ package com.dsa;
 import com.dsa.misc.concurrency.util.striped.ReentrantStripedLock;
 import com.dsa.misc.concurrency.util.striped.StripedLock;
 import com.dsa.ops.sort.Sort;
-import com.dsa.ops.sort.heap.HeapSort;
+import com.dsa.ops.sort.quick.QuickSort;
 
+import java.util.Arrays;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import static java.lang.System.out;
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
-    private static final Sort SORT = new HeapSort();
+    private static final Sort SORT = new QuickSort();
 
     private static final StripedLock<ReentrantLock> REENTRANT_STRIPED_LOCK = new ReentrantStripedLock();
 
@@ -25,6 +26,8 @@ public class Main {
         int gs = 14105823;
         int lemonade = 3969332;
         int bras = 818898;
+
+        out.println(Arrays.toString(array));
 
         ReentrantLock lockWithOffset = REENTRANT_STRIPED_LOCK.getLock(gs);
         ReentrantLock lockWithOffset2 = REENTRANT_STRIPED_LOCK.getLock(lemonade);

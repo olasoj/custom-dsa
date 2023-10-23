@@ -8,7 +8,7 @@ public class TopDownMergeSort implements MergeSort {
 
     private static <E extends Comparable<? super E>> void mergeSort(E[] a, int lo, int hi) {  // Sort a[lo..hi].
         if (hi <= lo) return;
-        int mid = lo + (hi - lo) / 2;
+        int mid = (lo + hi) / 2;
         mergeSort(a, lo, mid);       // Sort left half.
         mergeSort(a, mid + 1, hi);     // Sort right half.
         MergeSort.merge(a, lo, mid, hi);  // Merge results (code on page 271).

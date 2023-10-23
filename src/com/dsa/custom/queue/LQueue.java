@@ -2,6 +2,9 @@ package com.dsa.custom.queue;
 
 import com.dsa.custom.list.linked.llinked.Link;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 // Linked queue implementation
 public class LQueue<E> implements Queue<E> {
     int size;
@@ -43,9 +46,9 @@ public class LQueue<E> implements Queue<E> {
     public E dequeue() {         // remove element from front
         if (isEmpty()) return null;
 
-        E it = front.next().element();  // Store dequeued value
-        front.setNext(front.next().next());  // Advance front
-        if (front.next() == null) rear = front; // Last Object
+        Link<E> frontLocal = front.next();
+        E it = frontLocal.element();  // Store dequeued value
+        front.setNext(frontLocal.next());  // Advance front
         size--;
         return it;                      // Return Object
     }
@@ -62,4 +65,26 @@ public class LQueue<E> implements Queue<E> {
     public int length() {
         return size;
     } // Return length
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof LQueue)) return false;
+        LQueue<?> lQueue = (LQueue<?>) obj;
+        return size == lQueue.size && Objects.equals(front, lQueue.front) && Objects.equals(rear, lQueue.rear);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(size, front, rear);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", LQueue.class.getSimpleName() + "[", "]")
+                .add("size=" + size)
+                .add("front=" + front)
+                .add("rear=" + rear)
+                .toString();
+    }
 }
