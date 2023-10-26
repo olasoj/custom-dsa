@@ -1,7 +1,5 @@
 package com.dsa.question.hackerank;
 
-import org.apache.commons.lang3.RandomStringUtils;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -55,11 +53,11 @@ public class ThreePalindromicSubstrings {
 
         Instant startTime = Instant.now();
 
-        String random = RandomStringUtils.random(59000);
-//        List<String> threePalindromicSubstrings = threePalindromicSubstrings("madamciviclevel");
-        List<String> threePalindromicSubstrings2 = threePalindromicSubstrings(random);
+//        String random = RandomStringUtils.random(59000);
+        List<String> threePalindromicSubstrings = threePalindromicSubstrings("madamciviclevel");
+//        List<String> threePalindromicSubstrings2 = threePalindromicSubstrings(random);
 //        System.out.println(threePalindromicSubstrings);
-        System.out.println(threePalindromicSubstrings2);
+        System.out.println(threePalindromicSubstrings);
 
         Instant endTime = Instant.now();
         Duration timeElapsed = Duration.between(startTime, endTime);

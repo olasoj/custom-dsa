@@ -20,22 +20,15 @@ public class CC {
             String queryInt = query[0];
 
             switch (queryInt) {
-                case ADD_FILE:
-                    addHandler(files, resultList, query);
-                    break;
-                case COPY_FILE:
-                    copyHandler(files, resultList, query);
-                    break;
-                case FIND_FILE:
-                    findFileHandler(files, resultList, query);
-                    break;
-                case GET_FILE_SIZE:
+                case ADD_FILE -> addHandler(files, resultList, query);
+                case COPY_FILE -> copyHandler(files, resultList, query);
+                case FIND_FILE -> findFileHandler(files, resultList, query);
+                case GET_FILE_SIZE -> {
                     String fileName = query[1];
                     String orDefault = files.getOrDefault(fileName, "");
                     resultList.add(orDefault);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + queryInt);
+                }
+                default -> throw new IllegalStateException("Unexpected value: " + queryInt);
             }
         }
         String[] strings = new String[queries.length];

@@ -19,7 +19,7 @@ public class Factorial {
 
     // this is a Core-cursion  method
     //  fact(n - 1) * n
-    int factCorecursion(int n) {
+    public static int factCorecursion(int n) {
         int temp = n;
 
         while (temp-- > 1) {
@@ -31,12 +31,11 @@ public class Factorial {
 
 class Recursion {
     public static void main(String[] args) {
-        Factorial f = new Factorial();
         System.out.println("Factorial of -1 is " + Factorial.fact(-1));
-        System.out.println("Factorial of -1 is " + f.factCorecursion(-1));
+        System.out.println("Factorial of -1 is " + Factorial.factCorecursion(-1));
         System.out.println("Factorial of 3 is " + Factorial.fact(3));
         System.out.println("Factorial of 4 is " + Factorial.fact(4));
         System.out.println("Factorial of 5 is " + Factorial.fact(5));
-        System.out.println("Factorial of 5 is " + f.factCorecursion(5));
+        System.out.println("Factorial of 5 is " + Factorial.factCorecursion(5));
     }
 }

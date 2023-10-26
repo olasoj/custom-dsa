@@ -84,7 +84,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      * Heapify contents of Heap
      */
     public void buildHeap() {
-        for (int i = n / 2 - 1; i >= 0; i--) siftDown(i);
+        for (int i = (n / 2) - 1; i >= 0; i--) siftDown(i);
     }
 
     /**
@@ -92,7 +92,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public void insert(E val) {
-        if (n >= size) throw new IllegalArgumentException("Heap is full");
+        if (n >= size) throw new IllegalStateException("Heap is full");
 
         int curr = n++;
         heap[curr] = val;                 // Start at end of heap
@@ -113,7 +113,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
 
         while (!isLeaf(pos)) {
             int j = leftChild(pos);
-            if ((j < (n - 1)) && (heap[j].compareTo(heap[j + 1]) < 0))
+            if ((j < (n - 1)) && (heap[j].compareTo(heap[j + 1]) < 0)) //If J is less than sibling use sibling
                 j++; // j is now index of child with greater value
             if (heap[pos].compareTo(heap[j]) >= 0)
                 return;
@@ -124,7 +124,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
 
     @Override
     public E removeMax() {     // Remove maximum value
-        if (n <= 0) throw new IllegalArgumentException("Removing from empty heap");
+        if (n <= 0) throw new IllegalStateException("Removing from empty heap");
 
         DSUtil.swap(heap, 0, --n); // Swap maximum with last value
         if (n != 0)      // Not on last element

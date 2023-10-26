@@ -13,4 +13,8 @@ public class DSUtil {
     public static <E extends Comparable<? super E>> boolean isLess(E[] a, int i, int j) {
         return a[i].compareTo(a[j]) < 0;
     }
+
+    public static int random(int i) {
+        return 0;
+    }
 }

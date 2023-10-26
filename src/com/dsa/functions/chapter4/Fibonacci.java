@@ -50,6 +50,34 @@ public class Fibonacci {
         }
     }
 
+    public static long olasojFib(int n) {
+
+        int counter = 0;
+        long result = 1;
+        long preResult = 0;
+        long tempResult;
+
+        while (counter < n) {
+
+            tempResult = result;
+            result = result + preResult;
+            preResult = tempResult;
+
+            counter++;
+        }
+
+        return preResult;
+    }
+
+    public static long fibLong(int n) {
+        long[] f = new long[n + 1];
+        f[0] = 0;
+        f[1] = 1;
+        for (int i = 2; i <= n; i++)
+            f[i] = f[i - 1] + f[i - 2];
+        return f[n];
+    }
+
     public static int fibonacci(int number) {
         if (number == 0 || number == 1) {
             return number;

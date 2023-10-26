@@ -14,9 +14,9 @@ public class QQ {
 
     private static int bracketCombinations(int num) {
         int n = num * 2;
-        int numberFactorial = Factorial.simpleFact(n);
-        int rFactorial = Factorial.simpleFact(num + 1);
-        int nrFactorial = Factorial.simpleFact((num));
+        int numberFactorial = Factorial.factCorecursion(n);
+        int rFactorial = Factorial.factCorecursion(num + 1);
+        int nrFactorial = Factorial.factCorecursion((num));
         return numberFactorial / (nrFactorial * rFactorial);
     }
 
