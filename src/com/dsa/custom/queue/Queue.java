@@ -1,6 +1,7 @@
 package com.dsa.custom.queue;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Queue ADT
@@ -49,6 +50,7 @@ public interface Queue<E> extends Iterable<E> {
 
             @Override
             public E next() {
+                if (!hasNext()) throw new NoSuchElementException("Queue is empty");
                 return dequeue();
             }
         };

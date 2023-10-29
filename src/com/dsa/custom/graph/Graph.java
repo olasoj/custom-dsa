@@ -1,9 +1,8 @@
 package com.dsa.custom.graph;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
-public interface Graph {
+public interface Graph extends Iterable<Integer> {
     void init(int n); //Init to n vertices
 
     int noOfVertices(); //Number of vertices
@@ -27,18 +26,7 @@ public interface Graph {
     int getMark(int v);           // Get Mark for v
 
     default Iterator<Integer> iterator(int v) {
-        return new Iterator<>() {
-            @Override
-            public boolean hasNext() {
-                return first(v) == noOfVertices();
-            }
-
-            @Override
-            public Integer next() {
-                if (!hasNext()) throw new NoSuchElementException();
-                return first(v);
-            }
-        };
+        return new GraphIterator(this, v);
     }
 }
 

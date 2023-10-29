@@ -1,6 +1,9 @@
 package com.dsa.custom.graph.agraph;
 
 import com.dsa.custom.graph.Graph;
+import com.dsa.custom.graph.GraphIterator;
+
+import java.util.Iterator;
 
 public class Graphm implements Graph {
 
@@ -82,5 +85,10 @@ public class Graphm implements Graph {
 
     public int getMark(int v) {
         return mark[v];
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new GraphIterator(this, mark[0]);
     }
 }

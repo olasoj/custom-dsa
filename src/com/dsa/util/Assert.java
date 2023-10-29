@@ -1,6 +1,6 @@
 package com.dsa.util;
 
-class Assert {
+public class Assert {
 
     private Assert() {
     }

@@ -3,42 +3,39 @@ package com.dsa.custom.graph.search;
 import com.dsa.custom.graph.Graph;
 
 import java.util.Iterator;
+import java.util.function.BiConsumer;
+import java.util.function.IntConsumer;
 
-public class DepthFirstSearch implements GraphSearch {
+public class DepthFirstSearch extends AbstractGraphSearch {
 
-    //Change this to a stack of objects.
-    private final boolean[] marked;
-    private int count;
-
-    public DepthFirstSearch(Graph graph, int s) {
-        marked = new boolean[graph.noOfVertices()];
-        dfs(graph, s);
+    public DepthFirstSearch(Graph graph) {
+        super(graph);
     }
 
-    //We are using Java function (stack) to recursively
-    private void dfs(Graph graph, int v) {
+    public DepthFirstSearch(Graph graph, BiConsumer<Integer, Integer> visitAction, IntConsumer postVisitAction, IntConsumer preVisitAction) {
+        super(graph, visitAction, postVisitAction, preVisitAction);
+    }
+
+    private void dfs(int v) {
+        preVisit(v);
         marked[v] = true;
         count++;
 
-        while (graph.first(v) != graph.noOfVertices()) {
-            v = graph.first(v);
-            if (!marked[v]) dfs(graph, v);
-        }
-
-        for (Iterator<Integer> it = graph.iterator(v); it.hasNext(); ) {
+        Iterator<Integer> it = graph.iterator(v);
+        while (it.hasNext()) {
             int w = it.next();
-            if (!marked[w]) dfs(graph, w);
+            if (!marked[w]) {
+                visit(v, w);
+                dfs(w);
+            }
         }
+
+        postVisit(v);
     }
 
     @Override
-    public boolean marked(int w) {
-        return marked[w];
-    }
-
-    @Override
-    public int count() {
-        return count;
+    public void search(int v) {
+        dfs(v);
     }
 
 }
