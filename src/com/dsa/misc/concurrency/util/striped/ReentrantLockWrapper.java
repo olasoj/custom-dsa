@@ -1,9 +1,6 @@
 package com.dsa.misc.concurrency.util.striped;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
+import java.util.Objects;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -26,31 +23,22 @@ public class ReentrantLockWrapper {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-
-        if (!(obj instanceof ReentrantLockWrapper)) return false;
-
-        ReentrantLockWrapper otherReentrantLockWrapper = (ReentrantLockWrapper) obj;
-        return new EqualsBuilder()
-                .append(reentrantLock, otherReentrantLockWrapper.reentrantLock)
-                .append(condition, otherReentrantLockWrapper.condition)
-                .isEquals();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof  ReentrantLockWrapper)) return false;
+        ReentrantLockWrapper that = (ReentrantLockWrapper) o;
+        return Objects.equals(reentrantLock, that.reentrantLock) && Objects.equals(condition, that.condition);
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(reentrantLock)
-                .append(condition)
-                .toHashCode();
+        return Objects.hash(reentrantLock, condition);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("reentrantLock", reentrantLock)
-                .append("condition", condition)
-                .toString();
+        return "ReentrantLockWrapper{" + "reentrantLock=" + reentrantLock +
+                ", condition=" + condition +
+                '}';
     }
 }
