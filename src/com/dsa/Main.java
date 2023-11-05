@@ -8,6 +8,8 @@ import com.dsa.util.PerformanceUtil;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 
@@ -31,6 +33,16 @@ public class Main {
         PerformanceUtil.measureOperationDuration(() -> out.println("Power: " + power(5, 3)));
         PerformanceUtil.measureOperationDuration(() -> out.println("Power2: " + power2(5, 3)));
 
+
+        String regex = "([A-Za-z\\d\\-_]+)";
+        String gmghjhj = "gm-gh_jhj";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(gmghjhj);
+        boolean matches = gmghjhj.matches(regex);
+
+        out.println(matches);
+        out.println(matcher.matches());
     }
 
     static int power(int base, int exp) {

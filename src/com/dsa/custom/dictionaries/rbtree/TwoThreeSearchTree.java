@@ -4,12 +4,12 @@ import com.dsa.custom.dictionaries.Dictionary;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class RedBlackSearchTree<K extends Comparable<? super K>, E> implements Dictionary<K, E> {
+public class TwoThreeSearchTree<K extends Comparable<? super K>, E> implements Dictionary<K, E> {
 
     private final AtomicInteger nodeCount;
     private TTNode<K, E> rootInternal;
 
-    public RedBlackSearchTree() {
+    public TwoThreeSearchTree() {
         this.rootInternal = null;
         this.nodeCount = new AtomicInteger(0);
     }
