@@ -2,7 +2,6 @@ package com.dsa.custom.graph.lgraph;
 
 import com.dsa.custom.graph.Graph;
 import com.dsa.custom.graph.GraphIterator;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 
@@ -105,8 +104,6 @@ public class Graphl implements Graph {
         return mark[v];
     }
 
-
-    @NotNull
     @Override
     public Iterator<Integer> iterator() {
         return new GraphIterator(this, mark[0]);

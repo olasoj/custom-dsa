@@ -1,6 +1,6 @@
 package com.dsa.question.hackerank;
 
-import org.apache.commons.lang3.RandomStringUtils;
+//import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -74,7 +74,7 @@ public class GameWinner {
     public static void main(String[] args) {
         Instant startTime = Instant.now();
 
-        String random = RandomStringUtils.random(1000000, 0, 2, true, false, 'w', 'b');
+        String random = "";//RandomStringUtils.random(1000000, 0, 2, true, false, 'w', 'b');
         String gameWinner = gameWinnerEx(random);
 //        String gameWinner = gameWinner(random);
         System.out.println(gameWinner);
