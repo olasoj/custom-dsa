@@ -29,25 +29,25 @@ public class MusalaSoft {
             return 1;
         }
 
-        int counter = 0;
+        int max = 0;
 
         int[] dp = new int[arr.size()];
         dp[0] = 1;
 
         for (int i = 1; i < arr.size(); i++) {
-            for (int j = i - 1; j >= 0; j--) {
+
+            for (int j = 0; j < i; j++) {
                 if ((arr.get(i) ^ arr.get(j)) == k) {
                     dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
 
-            counter = Math.max(counter, dp[i]);
+            max = Math.max(max, dp[i]);
             dp[i] = Math.max(1, dp[i]);
         }
 
 
-        return counter < 2 ? 0 : counter;
-
+        return max < 2 ? 0 : max;
     }
 
     public static List<String> funWithAnagrams(List<String> text) {
