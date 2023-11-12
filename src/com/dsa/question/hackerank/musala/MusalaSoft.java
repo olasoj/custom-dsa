@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static java.lang.System.out;
+
 public class MusalaSoft {
 
     public static void main(String[] args) {
-        System.out.println(compressedString("abc"));
+        out.println(compressedString("abc"));
 
         ArrayList<String> objects = new ArrayList<>();
         objects.add("code");
@@ -18,9 +20,8 @@ public class MusalaSoft {
 
         List<Integer> integers = List.of(2, 1, 3, 5, 2);
 
-        System.out.println(maxSubsequenceLength(2, integers));
-
-        System.out.println(funWithAnagrams(objects));
+        out.println(maxSubsequenceLength(2, integers));
+        out.println(funWithAnagrams(objects));
     }
 
     public static int maxSubsequenceLength(int k, List<Integer> arr) {
@@ -43,10 +44,9 @@ public class MusalaSoft {
             }
 
             max = Math.max(max, dp[i]);
-            dp[i] = Math.max(1, dp[i]);
         }
 
-
+        max = max + 1;
         return max < 2 ? 0 : max;
     }
 
