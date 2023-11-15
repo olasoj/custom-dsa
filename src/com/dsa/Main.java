@@ -1,6 +1,7 @@
 package com.dsa;
 
 import com.dsa.ops.search.BinarySearch;
+import com.dsa.ops.search.QuickSelect;
 import com.dsa.ops.search.Search;
 import com.dsa.ops.sort.Sort;
 import com.dsa.ops.sort.quick.QuickSort;
@@ -8,6 +9,8 @@ import com.dsa.util.PerformanceUtil;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.System.out;
 
@@ -16,21 +19,35 @@ public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
     private static final Sort SORT = new QuickSort();
     private static final Search SEARCH = new BinarySearch();
+    private static final Search QUICK_SEARCH = new QuickSelect();
 
     public static void main(String[] args) {
 
-        Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 1, 292, 2982, 292862, 2};
+        Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 292, 2982, 292862};
 
+        int kElement = 12;
+        int quickSearch = QUICK_SEARCH.search(array, kElement);
+        out.println("Smallest " + kElement + "th  element: " + quickSearch);
         SORT.sort(array);
-        int search = SEARCH.search(array, 292862);
 
         out.println(Arrays.toString(array));
+        int search = SEARCH.search(array, 272);
         out.println(search);
         out.println(array[search]);
 
         PerformanceUtil.measureOperationDuration(() -> out.println("Power: " + power(5, 3)));
         PerformanceUtil.measureOperationDuration(() -> out.println("Power2: " + power2(5, 3)));
 
+
+        String regex = "([A-Za-z\\d\\-_]+)";
+        String gmghjhj = "gm-gh_jhj";
+
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(gmghjhj);
+        boolean matches = gmghjhj.matches(regex);
+
+        out.println(matches);
+        out.println(matcher.matches());
     }
 
     static int power(int base, int exp) {

@@ -18,9 +18,9 @@ public class PerformanceUtil {
         end(now);
     }
 
-    public static <T> T measureOperationDuration(Supplier<T> runnable) {
+    public static <T> T measureOperationDuration(Supplier<T> supplier) {
         Instant now = start();
-        T t = runnable.get();
+        T t = supplier.get();
         end(now);
         return t;
     }
@@ -32,6 +32,6 @@ public class PerformanceUtil {
     private static void end(Instant now) {
         Instant end = Instant.now();
         Duration between = Duration.between(now, end);
-        out.println("Operation took: " + between.toMillis());
+        out.println("Operation took: " + between.toMillis() + " millis");
     }
 }

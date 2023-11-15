@@ -25,8 +25,4 @@ public interface BinaryNode<E> {
      * Return true if this is a leaf node
      */
     boolean isLeaf();
-
-    int numberOfNodes();
-
-    int height();
 }
