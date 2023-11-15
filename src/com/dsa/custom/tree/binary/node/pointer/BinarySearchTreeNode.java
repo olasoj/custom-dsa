@@ -86,15 +86,5 @@ public class BinarySearchTreeNode<K, E> implements BinaryNode<E> {
     public boolean isLeaf() {
         return (left == null) && (right == null);
     }
-
-    @Override
-    public int numberOfNodes() {
-        return 0;
-    }
-
-    @Override
-    public int height() {
-        return 0;
-    }
 }
 

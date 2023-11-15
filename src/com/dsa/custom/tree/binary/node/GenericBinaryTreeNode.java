@@ -66,27 +66,6 @@ public class GenericBinaryTreeNode<E> implements BinaryNode<E> {
     }
 
     /**
-     * Counts the nodes in the subtree rooted at this node.
-     *
-     * @return The number of nodes in the subtree rooted at
-     */
-    @Override
-    public int numberOfNodes() {
-//          <See Segment 25.10 >
-        return 1;
-    }
-
-    /**
-     * Counts the nodes in the subtree rooted at this node.
-     *
-     * @return The height of the subtree rooted at this node.
-     */
-    @Override
-    public int height() {
-        return 1;
-    }
-
-    /**
      * Copies the subtree rooted at this node.
      *
      * @return The root of a copy of the subtree rooted at this
