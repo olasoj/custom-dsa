@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 public class GraphIterator implements java.util.Iterator<Integer> {
 
     private final Graph g;
-    private int vertex;
+    private final int vertex;
     private int weight;
 
     public GraphIterator(Graph g, int vertex) {

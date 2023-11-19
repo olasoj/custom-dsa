@@ -1,16 +1,16 @@
-package com.dsa.custom.graph.directed.sort;
+package com.dsa.custom.graph.algorithm.sort;
 
-import com.dsa.custom.graph.directed.Digraph;
-import com.dsa.custom.graph.directed.cycle.DirectedCycle;
+import com.dsa.custom.graph.Graph;
+import com.dsa.custom.graph.algorithm.cycle.DirectedCycle;
 
 public class DefaultTopological implements Topological {
     private Iterable<Integer> order;
 
     // topological order
-    public DefaultTopological(Digraph digraph) {
-        DirectedCycle cylinder = new DirectedCycle(digraph);
+    public DefaultTopological(Graph graph) {
+        DirectedCycle cylinder = new DirectedCycle(graph);
         if (!cylinder.hasCycle()) {
-            DepthFirstOrder dfs = new DepthFirstOrder(digraph);
+            DepthFirstOrder dfs = new DepthFirstOrder(graph);
             order = dfs.reversePost();
         }
     }

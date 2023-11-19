@@ -1,9 +1,10 @@
-package com.dsa.custom.graph.directed.cycle;
+package com.dsa.custom.graph.algorithm.cycle;
 
-import com.dsa.custom.graph.directed.Digraph;
-import com.dsa.custom.graph.lgraph.Edge;
+import com.dsa.custom.graph.Graph;
 import com.dsa.custom.stack.LStack;
 import com.dsa.custom.stack.Stack;
+
+import java.util.Iterator;
 
 public class DirectedCycle {
 
@@ -12,28 +13,35 @@ public class DirectedCycle {
     private final boolean[] onStack;
     private Stack<Integer> cycle;
 
-    public DirectedCycle(Digraph digraph) {
-        onStack = new boolean[digraph.V()];
-        edgeTo = new int[digraph.V()];
-        marked = new boolean[digraph.V()];
-        for (int v = 0; v < digraph.V(); v++)
-            if (!marked[v]) dfs(digraph, v);
+    public DirectedCycle(Graph graph) {
+        int noOfVertices = graph.noOfVertices();
+
+        onStack = new boolean[noOfVertices];
+        edgeTo = new int[noOfVertices];
+        marked = new boolean[noOfVertices];
+
+        for (int v = 0; v < noOfVertices; v++)
+            if (!marked[v]) dfs(graph, v);
     }
 
-    private void dfs(Digraph digraph, int v) {
+    private void dfs(Graph digraph, int v) {
         onStack[v] = true;
         marked[v] = true;
 
-        for (Edge edge : digraph.adj(v)) {
-            int w = edge.vertex();
+        Iterator<Integer> iterator = digraph.iterator(v);
+
+        while (iterator.hasNext()) {
+            Integer w = iterator.next();
 
             if (this.hasCycle()) return;
 
             else if (!marked[w]) {
                 edgeTo[w] = v;
                 dfs(digraph, w);
-            } else if (onStack[w]) {
+            } else if (onStack[w]) { //Has been visited
                 cycle = new LStack<>();
+
+                //Build the path
                 for (int x = v; x != w; x = edgeTo[x])
                     cycle.push(x);
                 cycle.push(w);

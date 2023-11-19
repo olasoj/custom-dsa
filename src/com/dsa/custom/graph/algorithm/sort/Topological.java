@@ -1,4 +1,4 @@
-package com.dsa.custom.graph.directed.sort;
+package com.dsa.custom.graph.algorithm.sort;
 
 public interface Topological {
 

@@ -1,35 +1,24 @@
 package com.dsa.custom.graph.cc;
 
 import com.dsa.custom.graph.Graph;
-
-import java.util.Iterator;
+import com.dsa.custom.graph.search.DepthFirstSearch;
+import com.dsa.custom.graph.search.GraphSearch;
 
 public class DefaultConnectedComponent {
 
-    private final boolean[] marked;
     private final int[] id;
     private int count;
 
     public DefaultConnectedComponent(Graph graph) {
-        marked = new boolean[graph.noOfVertices()];
         id = new int[graph.noOfVertices()];
 
-        for (int s = 0; s < graph.noOfVertices(); s++)
-            if (!marked[s]) {
-                dfs(graph, s);
+        GraphSearch graphSearch = new DepthFirstSearch(graph, null, null, v -> id[v] = count);
+
+        for (int s = 0; s < graph.noOfVertices(); s++) {
+            if (!graphSearch.marked(s)) {
+                graphSearch.search(s);
                 count++;
             }
-    }
-
-
-    private void dfs(Graph graph, int v) {
-        marked[v] = true;
-        id[v] = count;
-
-        for (Iterator<Integer> it = graph.iterator(v); it.hasNext(); ) {
-            int w = it.next();
-            if (!marked[w])
-                dfs(graph, w);
         }
     }
 
