@@ -20,6 +20,36 @@ public class MaxPQ<E extends Comparable<? super E>> implements MaxHeap<E> {
         pq = (E[]) new Comparable[maxN + 1];
     }
 
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public void enqueue(E it) {
+
+    }
+
+    @Override
+    public boolean isFull() {
+        return false;
+    }
+
+    @Override
+    public E dequeue() {
+        return null;
+    }
+
+    @Override
+    public E frontValue() {
+        return null;
+    }
+
+    @Override
+    public int length() {
+        return 0;
+    }
+
     public boolean isEmpty() {
         return n == 0;
     }

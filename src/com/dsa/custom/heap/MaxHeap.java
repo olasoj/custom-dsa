@@ -1,6 +1,8 @@
 package com.dsa.custom.heap;
 
-public interface MaxHeap<E extends Comparable<? super E>> {
+import com.dsa.custom.queue.Queue;
+
+public interface MaxHeap<E extends Comparable<? super E>> extends Queue<E> {
     int heapSize();
 
     boolean isLeaf(int pos);

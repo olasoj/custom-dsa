@@ -4,7 +4,7 @@ import com.dsa.ops.search.BinarySearch;
 import com.dsa.ops.search.QuickSelect;
 import com.dsa.ops.search.Search;
 import com.dsa.ops.sort.Sort;
-import com.dsa.ops.sort.quick.QuickSort;
+import com.dsa.ops.sort.heap.HeapSort;
 import com.dsa.util.PerformanceUtil;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import static java.lang.System.out;
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
-    private static final Sort SORT = new QuickSort();
+    private static final Sort SORT = new HeapSort();
     private static final Search SEARCH = new BinarySearch();
     private static final Search QUICK_SEARCH = new QuickSelect();
 

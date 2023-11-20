@@ -52,4 +52,8 @@ public class Edge implements Comparable<Edge> {
     public String toString() {
         return String.format("%d-%d %.2f", vert, otherVert, wt);
     }
+
+    public int either() {
+        return vertex();
+    }
 }

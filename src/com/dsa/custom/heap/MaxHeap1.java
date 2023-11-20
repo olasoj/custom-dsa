@@ -32,7 +32,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
 
     public MaxHeap1(int max) {
         heap = (E[]) new Comparable[max];
-        n = max;
+        n = 0;
         size = max;
         buildHeap();
     }
@@ -92,7 +92,7 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
      */
     @Override
     public void insert(E val) {
-        if (n >= size) throw new IllegalStateException("Heap is full");
+        if (isFull()) throw new IllegalStateException("Heap is full");
 
         int curr = n++;
         heap[curr] = val;                 // Start at end of heap
@@ -145,8 +145,43 @@ public class MaxHeap1<E extends Comparable<? super E>> implements MaxHeap<E> {
             pos = parent(pos);
         }
         if (n != 0) siftDown(pos);
-// Push down
+        // Push down
         return heap[n];
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public void enqueue(E it) {
+        insert(it);
+    }
+
+    @Override
+    public boolean isFull() {
+        return n >= size;
+    }
+
+    @Override
+    public E dequeue() {
+        return removeMax();
+    }
+
+    @Override
+    public E frontValue() {
+        return null;
+    }
+
+    @Override
+    public int length() {
+        return n;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return n == 0;
     }
 }
 

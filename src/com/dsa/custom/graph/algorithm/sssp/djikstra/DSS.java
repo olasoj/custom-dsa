@@ -1,4 +1,4 @@
-package com.dsa.custom.graph.algorithm.djikstra;
+package com.dsa.custom.graph.algorithm.sssp.djikstra;
 
 import com.dsa.custom.graph.Graph;
 
