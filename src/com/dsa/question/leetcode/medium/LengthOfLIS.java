@@ -1,14 +1,16 @@
 package com.dsa.question.leetcode.medium;
 
 
+import static java.lang.System.out;
+
 public class LengthOfLIS {
 
     public static void main(String[] args) {
         int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         int i = lengthOfLIS(nums);
-        System.out.println(lengthOfLIS2(nums));
-        System.out.println(lengthOfLIS2(new int[]{3, 4, -1, 0, 6, 2, 3}));
-        System.out.println(i);
+        out.println(lengthOfLIS2(nums));
+        out.println(lengthOfLIS2(new int[]{3, 4, -1, 0, 6, 2, 3}));
+        out.println(i);
     }
 
     public static int lengthOfLIS(int[] nums) {
@@ -65,8 +67,8 @@ public class LengthOfLIS {
 
 //        (n-1)(3n)
 //        System.out.println(Arrays.toString(dp));
-        System.out.println("TotalJIterations: " + totalJIterations);
-        System.out.println("Num size: " + nums.length);
+        out.println("TotalJIterations: " + totalJIterations);
+        out.println("Num size: " + nums.length);
 
         return max + 1;
     }

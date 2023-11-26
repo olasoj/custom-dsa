@@ -9,7 +9,7 @@ public class CoinChange {
     public static void main(String[] args) {
 
         int[] coins = new int[]{1, 3, 5, 10};
-        int answer3 = PerformanceUtil.measureOperationDuration(() -> cCoinChange(4, coins));
+        int answer3 = PerformanceUtil.measureOperationDuration(() -> cCoinChange(9, coins));
         int answer4 = PerformanceUtil.measureOperationDuration(() -> oCoinChange(9, coins));
         out.println(answer3);
         out.println(answer4);

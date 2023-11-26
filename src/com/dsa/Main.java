@@ -37,6 +37,7 @@ public class Main {
 
         PerformanceUtil.measureOperationDuration(() -> out.println("Power: " + power(5, 3)));
         PerformanceUtil.measureOperationDuration(() -> out.println("Power2: " + power2(5, 3)));
+        PerformanceUtil.measureOperationDuration(() -> out.println("lcf: " + lcf(48, 16)));
 
 
         String regex = "([A-Za-z\\d\\-_]+)";
@@ -62,23 +63,29 @@ public class Main {
     }
 
     static int power2(int base, int exp) {
+        int i = 1;
 
-        int accumulator = 1;
+        int tempExp = exp;
+        while (tempExp > 0) {
 
-        while (exp > 0) {
-            accumulator = accumulator * ((odd(exp)) ? base : 1) * exp * exp / 2;
-            out.println("Happening..." + accumulator);
-            exp = exp / 2;
+            int multiplier = i;
+            boolean isOdd = odd(i);
+            if (!isOdd) multiplier = multiplier + 1;
+            multiplier = multiplier * multiplier * (isOdd ? base : 1);
+
+            i = multiplier;
+            tempExp = tempExp / 2;
         }
 
-        return (accumulator);
+        return (i);
     }
 
     private static boolean odd(int exp) {
         return exp % 2 != 0;
     }
 
-    int lcf(int n, int m) {
+    static int lcf(int n, int m) {
+        out.println("m=" + m + "n=" + n);
         if (m == 0) return n;
         return lcf(m, n % m);
     }
