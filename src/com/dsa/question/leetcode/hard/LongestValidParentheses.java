@@ -2,12 +2,14 @@ package com.dsa.question.leetcode.hard;
 
 import java.util.Arrays;
 
+import static java.lang.System.out;
+
 public class LongestValidParentheses {
 
     public static void main(String[] args) {
         LongestValidParentheses validParentheses = new LongestValidParentheses();
         int valid = validParentheses.longestValidParentheses(")()())((()))");
-        System.out.println(valid);
+        out.println(valid);
     }
 
     public int longestValidParentheses(String s) {
@@ -24,13 +26,13 @@ public class LongestValidParentheses {
                 V[i] = 2 + V[i - 1];
                 // add matches from previous
                 if (i - V[i] > 0)
-                    V[i] += V[i - V[i]];
+                    V[i] = V[i] + V[i - V[i]];
                 open--;
             }
             if (V[i] > max) max = V[i];
         }
 
-        System.out.println(Arrays.toString(V));
+        out.println(Arrays.toString(V));
         return max;
     }
 }
