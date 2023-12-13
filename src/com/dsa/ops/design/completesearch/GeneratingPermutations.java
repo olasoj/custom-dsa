@@ -32,7 +32,7 @@ public class GeneratingPermutations {
             for (int i = 0; i < arr.length; i++) {
                 if (chosen[i]) continue;
                 chosen[i] = true;
-                permutation.add(i);
+                permutation.add(arr[i]);
                 search(arr, permutation, permutations, chosen);
                 chosen[i] = false;
                 permutation.remove(permutation.remove(permutation.size() - 1));

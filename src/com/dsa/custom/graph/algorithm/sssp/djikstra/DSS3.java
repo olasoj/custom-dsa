@@ -37,6 +37,7 @@ public class DSS3 {
             for (int w = graph.first(v); w < noOfVertices; w = graph.next(v, w))
                 if (distance[w] > (distance[v] + graph.weight(v, w))) { // Update distance
                     distance[w] = distance[v] + graph.weight(v, w);
+                    //TODO: If already enqueued replace
                     dijkElems.enqueue(new DijkElem(w, distance[w]));
                 }
         }

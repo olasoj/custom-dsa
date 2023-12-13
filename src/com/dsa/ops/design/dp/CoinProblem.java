@@ -25,6 +25,13 @@ public class CoinProblem {
         out.println(algorithm5(coins, 5));
     }
 
+    /**
+     * Number of ways to make a coin. Iterative
+     *
+     * @param coins coins
+     * @param n     amount
+     * @return Number of ways to make a coin
+     */
     private static int algorithm5(int[] coins, int n) {
         int[] computedValue = new int[n + 1];
 
@@ -39,20 +46,40 @@ public class CoinProblem {
         return computedValue[n];
     }
 
+    /**
+     * Number of ways to make a coin
+     *
+     * @param coins coins
+     * @param n     amount
+     * @return Number of ways to make a coin
+     */
     private static int algorithm4(int[] coins, int n) {
-        return solve(coins, n);
+        int[] dp = new int[n + 1];
+        boolean[] ready = new boolean[n + 1];
+        int solve = solve(coins, n, dp, ready);
+
+        out.println(Arrays.toString(ready));
+        out.println(Arrays.toString(dp));
+        return solve;
     }
 
-    private static int solve(int[] coins, int n) {
-        if (n == 0) return 1;
-
+    private static int solve(int[] coins, int n, int[] dp, boolean[] ready) {
         int counter = 0;
+        if (n == 0) {
+            return 1;
+        }
+
+        if (ready[n]) return dp[n];
+
         for (int coin : coins) {
             if (n - coin >= 0) {
-                counter = 1 + solve(coins, n - coin);
+                int solve = solve(coins, n - coin, dp, ready);
+                counter = counter + solve;
             }
-
         }
+
+        ready[n] = true;
+        dp[n] = counter;
 
         return counter;
     }
