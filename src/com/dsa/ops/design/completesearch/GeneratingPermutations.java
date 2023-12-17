@@ -35,7 +35,7 @@ public class GeneratingPermutations {
                 permutation.add(arr[i]);
                 search(arr, permutation, permutations, chosen);
                 chosen[i] = false;
-                permutation.remove(permutation.remove(permutation.size() - 1));
+                permutation.remove(permutation.size() - 1);
             }
         }
     }

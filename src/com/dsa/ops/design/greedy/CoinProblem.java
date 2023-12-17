@@ -1,7 +1,11 @@
 package com.dsa.ops.design.greedy;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import com.dsa.util.DSUtil;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Queue;
 
 import static java.lang.System.out;
 
@@ -20,9 +24,7 @@ public class CoinProblem {
 
     private static void algorithm(int[] arr, int n) {
         Comparator<Integer> integerComparator = Comparator.naturalOrder();
-        Queue<Integer> queue = Arrays.stream(arr)
-                .boxed()
-                .collect(Collectors.toCollection(() -> new PriorityQueue<>(integerComparator.reversed())));
+        Queue<Integer> queue = DSUtil.toPQ(arr, integerComparator.reversed());
 
         List<Integer> selectedCoins = new ArrayList<>(arr.length);
         int counter = 0;
