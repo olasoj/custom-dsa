@@ -28,7 +28,7 @@ public class ThreeSumClosest {
         List<List<Integer>> permutations = new ArrayList<>();
         List<Integer> permutation = new ArrayList<>();
 
-        expectedResultSize = Factorial.factCorecursion(arr.length) / Factorial.factCorecursion(3);
+        expectedResultSize = Factorial.factIterative(arr.length) / Factorial.factIterative(3);
         SortedMap<Integer, Integer> perWithValues = new TreeMap<>();
 
         search(arr, permutation, permutations, new boolean[arr.length], t2, perWithValues, 0);
