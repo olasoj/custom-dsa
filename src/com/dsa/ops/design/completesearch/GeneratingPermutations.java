@@ -24,7 +24,7 @@ public class GeneratingPermutations {
     }
 
     private static void search(int[] arr, List<Integer> permutation, List<List<Integer>> permutations, boolean[] chosen) {
-        int n = arr.length;
+        int n = arr.length;  //Change to return permutation of small size
         if (permutation.size() == n) {
             // process permutation
             permutations.add(List.copyOf(permutation));
