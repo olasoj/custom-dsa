@@ -1,5 +1,7 @@
 package com.dsa.ops.design.dp;
 
+import com.dsa.util.PerformanceUtil;
+
 import java.util.*;
 
 import static java.lang.System.out;
@@ -15,7 +17,8 @@ public class LongestCommonSubsequence {
 
         algorithm(sequence, subSequence);
         algorithm2(sequence, subSequence);
-        algorithm3(sequence, subSequence);
+        PerformanceUtil.measureOperationDuration(() -> algorithm3(sequence, subSequence));
+        PerformanceUtil.measureOperationDuration(() -> LCS(sequence, subSequence));
     }
 
     private static void algorithm3(String sequence, String subSequence) {
