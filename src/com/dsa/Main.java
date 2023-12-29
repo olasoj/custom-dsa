@@ -43,12 +43,19 @@ public class Main {
         String regex = "([A-Za-z\\d\\-_]+)";
         String gmghjhj = "gm-gh_jhj";
 
+        isAValidDecodeWays(String.valueOf(gmghjhj.charAt(0)));
+        out.println("I m test this " + gmghjhj.substring(0, 2));
+
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(gmghjhj);
         boolean matches = gmghjhj.matches(regex);
 
         out.println(matches);
         out.println(matcher.matches());
+    }
+
+    static boolean isAValidDecodeWays(String s) {
+        return true;
     }
 
     static int power(int base, int exp) {
