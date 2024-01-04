@@ -29,12 +29,10 @@ public class SlidingWindowMaximum {
                 segTree[i] = arr[counter];
         }
 
-        for (int i = n - 1; i >= 0; i--) { //O(n)
-            // populate parent = LC + RC
+        for (int i = n - 1; i >= 0; i--) {
             segTree[i] = Math.max(segTree[2 * i], segTree[2 * i + 1]);
         }
 
-        out.println(Arrays.toString(segTree));
         return segTree;
     }
 
@@ -44,7 +42,7 @@ public class SlidingWindowMaximum {
 
         a += n;  //Search in the original array.
         b += n;  //Search in the original array.
-        int s = 0;
+        int s = Integer.MIN_VALUE;
 
         while (a <= b) {
             if (a % 2 == 1) s = Math.max(s, tree[a++]);
@@ -58,14 +56,25 @@ public class SlidingWindowMaximum {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int[] result = new int[(nums.length - k) + 1];
 
+        if (k == 1) return nums;
+
         int[] segmentTree = buildSegmentTree(nums);
 
+        int max = 0;
         int left = 0;
+
         while (k <= nums.length) {
-            int sum = sum(left, k - 1, segmentTree);
+
+            int sum = (
+                    left == 0
+                            || max == nums[left - 1]
+                            || nums[k - 1] > max
+            ) ? sum(left, k - 1, segmentTree) : max;
+
             result[left] = sum;
             left++;
             k++;
+            max = sum;
         }
 
         return result;
