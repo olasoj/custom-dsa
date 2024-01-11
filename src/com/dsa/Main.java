@@ -7,6 +7,7 @@ import com.dsa.ops.sort.Sort;
 import com.dsa.ops.sort.heap.HeapSort;
 import com.dsa.util.PerformanceUtil;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -22,6 +23,16 @@ public class Main {
     private static final Search QUICK_SEARCH = new QuickSelect();
 
     public static void main(String[] args) {
+        String s = "7804";
+
+//        BigInteger.valueOf(0)
+        BigInteger bg = new BigInteger("2432432432432432432432432432432432432432432432432432432432439");
+        BigInteger bg2 = new BigInteger("2432432432432432432432432432432432432432432432432432432432439");
+
+        out.println(bg.add(bg2));
+        int reverse = Character.getNumericValue(s.charAt(0));
+        out.println(reverse);
+
 
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 292, 2982, 292862};
 
