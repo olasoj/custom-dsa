@@ -5,7 +5,7 @@ import com.dsa.custom.queue.Queue;
 
 public class TrieST<V> {
     private static final int RADIX = 256; // radix
-    private Node root;          // root of trie
+    private Node root = new Node();          // root of trie
 
     public V get(String key) {
         Node x = get(root, key, 0);
@@ -14,10 +14,15 @@ public class TrieST<V> {
     }
 
     private Node get(Node x, String key, int d) {  // Return value associated with key in the subtrie rooted at x.
-        if (x == null) return null;
-        if (d == key.length()) return x;
-        char c = key.charAt(d); // Use dth key char to identify subtrie.
-        return get(x.next[c], key, d + 1);
+
+        while (d < key.length()) {
+            char c = key.charAt(d);
+            x = x.next[c];
+            if (x == null) return null;
+            d++;
+        }
+
+        return x;
     }
 
     public void put(String key, V val) {
@@ -25,13 +30,21 @@ public class TrieST<V> {
     }
 
     private Node put(Node x, String key, V val, int d) {  // Change value associated with key if in subtrie rooted at x.
-        if (x == null) x = new Node();
-        if (d == key.length()) {
-            x.val = val;
-            return x;
+
+        while (d < key.length()) {
+            Node xTemp = x;
+            char c = key.charAt(d);
+            x = x.next[c];
+
+            if (x == null) {
+                x = new Node();
+                xTemp.next[c] = x;
+            }
+
+            d++;
         }
-        char c = key.charAt(d); // Use dth key char to identify subtrie.
-        x.next[c] = put(x.next[c], key, val, d + 1);
+
+        x.val = val;
         return x;
     }
 
@@ -46,6 +59,7 @@ public class TrieST<V> {
     }
 
     private void collect(Node x, String pre, Queue<String> q) {
+
         if (x == null) return;
         if (x.val != null) q.enqueue(pre);
         for (char c = 0; c < RADIX; c++)
