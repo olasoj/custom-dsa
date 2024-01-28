@@ -23,16 +23,6 @@ public class Main {
     private static final Search QUICK_SEARCH = new QuickSelect();
 
     public static void main(String[] args) {
-        String s = "7804";
-
-//        BigInteger.valueOf(0)
-        BigInteger bg = new BigInteger("2432432432432432432432432432432432432432432432432432432432439");
-        BigInteger bg2 = new BigInteger("2432432432432432432432432432432432432432432432432432432432439");
-
-        out.println(bg.add(bg2));
-        int reverse = Character.getNumericValue(s.charAt(0));
-        out.println(reverse);
-
 
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 292, 2982, 292862};
 
@@ -54,7 +44,6 @@ public class Main {
         String regex = "([A-Za-z\\d\\-_]+)";
         String gmghjhj = "gm-gh_jhj";
 
-        isAValidDecodeWays(String.valueOf(gmghjhj.charAt(0)));
         out.println("I m test this " + gmghjhj.substring(0, 2));
 
         Pattern pattern = Pattern.compile(regex);
@@ -63,10 +52,6 @@ public class Main {
 
         out.println(matches);
         out.println(matcher.matches());
-    }
-
-    static boolean isAValidDecodeWays(String s) {
-        return true;
     }
 
     static int power(int base, int exp) {
