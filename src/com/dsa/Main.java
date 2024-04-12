@@ -7,21 +7,54 @@ import com.dsa.ops.sort.Sort;
 import com.dsa.ops.sort.heap.HeapSort;
 import com.dsa.util.PerformanceUtil;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static java.lang.System.out;
 
 public class Main {
 
+    public static final String CURRENCY_CLOUD_BENEFICIARY_REQUIRED_DETAILS_RETRIEVAL_ENDPOINT = "beneficiary/required-details";
     private static final Logger LOGGER = Logger.getLogger(Main.class.getSimpleName());
     private static final Sort SORT = new HeapSort();
     private static final Search SEARCH = new BinarySearch();
     private static final Search QUICK_SEARCH = new QuickSelect();
+    private static final Set<String> AVAILABLE_CURRENCIES;
+    private static final Set<String> AVAILABLE_COUNTRIES;
+
+    static {
+        AVAILABLE_CURRENCIES = Currency.getAvailableCurrencies()
+                .stream()
+                .map(Currency::getCurrencyCode)
+                .collect(Collectors.toUnmodifiableSet());
+
+
+        String[] isoCountries = Locale.getISOCountries();
+        AVAILABLE_COUNTRIES = Set.of(isoCountries);
+    }
 
     public static void main(String[] args) {
+
+        String[] isoCountries = Locale.getISOCountries();
+        Set<String> isoCountriesAsSet = new HashSet<>(Arrays.asList(isoCountries));
+
+        out.println(Arrays.toString(isoCountries));
+        out.println(isoCountries.length);
+        out.println(AVAILABLE_COUNTRIES.size());
+        out.println(AVAILABLE_COUNTRIES);
+
+        if (!AVAILABLE_CURRENCIES.contains("GBP")) {
+            throw new IllegalStateException("Err");
+        }
+
+        if (!AVAILABLE_COUNTRIES.contains("NG")) {
+            throw new IllegalStateException("Err");
+        }
+
+        out.println(AVAILABLE_CURRENCIES);
 
         Integer[] array = new Integer[]{0, 1, 2, 3, 7, 67, 237, 272, 2228, 27, 292, 2982, 292862};
 
