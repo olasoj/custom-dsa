@@ -7,7 +7,7 @@ public class Q2 {
         String complicatedPassword = "complicatedPassword";
         String complicatedPassword2 = "Pass#1%!";
         String label = "123@PaSS";
-        Boolean validPassword = isValidPassword(complicatedPassword2);
+        Boolean validPassword = isValidPassword(label);
         System.out.println(validPassword);
     }
 

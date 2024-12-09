@@ -1,7 +1,5 @@
 package com.dsa.ops.design.rangequeries;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 
 import static java.lang.System.out;
@@ -24,7 +22,6 @@ public class PrefixSum {
         out.println(originalValue);
     }
 
-    @NotNull
     private static int[] buildPrefixSum(int[] arr) {
         int[] prefixSum = new int[arr.length];
         prefixSum[0] = arr[0];
